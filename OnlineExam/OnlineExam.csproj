@@ -11,8 +11,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OnlineExam.DAL\OnlineExam.DAL.csproj" />
+    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj" />
+    <ProjectReference Include="..\OnlineExam.Context\OnlineExam.Context.csproj" />
     <ProjectReference Include="..\OnlineExam.Entity\OnlineExam.Entity.csproj" />
+    <ProjectReference Include="..\OnlineExam.Services.Interfaces\OnlineExam.Services.Interfaces.csproj" />
+    <ProjectReference Include="..\OnlineExam.Services\OnlineExam.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\css\site.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\site.min.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

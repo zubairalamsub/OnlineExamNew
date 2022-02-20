@@ -1,3 +1,4 @@
+using Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -5,8 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using OnlineExam.DAL;
+using OnlineExam.Context;
 using OnlineExam.Entity;
+using OnlineExam.Entity.Interfaces;
+using OnlineExam.Services;
+using OnlineExam.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +33,8 @@ namespace OnlineExam
             services.AddControllersWithViews();
             services.Configure<ConnectionStringList>(Configuration.GetSection("ConnectionString"));
             services.AddDbContext<OnlineExamContext>(options => options.UseSqlServer(Configuration["ConnectionString:MsSqlConnection"]));
+            services.AddTransient<ILoginService, LoginService>();
+            services.AddTransient<ILoginRepository, LoginRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

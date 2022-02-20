@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OnlineExam.Context\OnlineExam.Context.csproj" />
+    <ProjectReference Include="..\OnlineExam.Entity.Interfaces\OnlineExam.Entity.Interfaces.csproj" />
+    <ProjectReference Include="..\OnlineExam.Entity\OnlineExam.Entity.csproj" />
+  </ItemGroup>
+
+</Project>
