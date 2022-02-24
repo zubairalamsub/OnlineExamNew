@@ -28,6 +28,13 @@ namespace OnlineExam.Controllers
             return View();
         }
 
+        public IActionResult TeacherLogin()
+        {
+
+            return View();
+        }
+
+
         [HttpPost]
         [Route("UserRegister")]
         [ProducesResponseType(200)]
@@ -56,6 +63,7 @@ namespace OnlineExam.Controllers
 
 
         [HttpPost]
+        [Route("api/Teacherlogin")]
         public async Task<bool> Index([FromBody] loginViewModel userlogIn)
         {
             try
@@ -67,7 +75,7 @@ namespace OnlineExam.Controllers
                     HttpContext.Session.SetInt32("Id", user.Id);
                     HttpContext.Session.SetString("UserName", user.UserName);
                     HttpContext.Session.SetString("Password", user.Password);
-                    HttpContext.Session.SetInt32("AdminType", Convert.ToInt32( user.AdminType));
+                    HttpContext.Session.SetInt32("AdminType", Convert.ToInt32(user.AdminType));
                     HttpContext.Session.SetString("LoginType", "Teacher");
                     CookieOptions option = new CookieOptions();
                     option.Expires = DateTime.Now.AddMinutes(1000);

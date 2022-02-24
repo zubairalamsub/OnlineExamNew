@@ -35,6 +35,7 @@ namespace OnlineExam
             services.AddDbContext<OnlineExamContext>(options => options.UseSqlServer(Configuration["ConnectionString:MsSqlConnection"]));
             services.AddTransient<ILoginService, LoginService>();
             services.AddTransient<ILoginRepository, LoginRepository>();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +57,7 @@ namespace OnlineExam
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

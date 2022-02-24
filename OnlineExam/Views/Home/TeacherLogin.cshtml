@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewData["Title"] = "TeacherLogin";
+}
+<link href="~/css/style.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script type="text/javascript">
+    var app = angular.module('teacherLoginModule', []);
+    app.controller('teacherLoginController', function ($scope, $http) {
+        $scope.categoryId = '-1';
+        $scope.Login = () => {
+            $scope.showTable = false;
+           /* $scope.showTable1 = false;*/
+            let Url = "";
+            let hostName = window.location.protocol + "//" + window.location.hostname;
+            let portName = window.location.port;
+            Url = `${hostName}${portName != "" ? `:${portName}/api/` : `/api/`}`;
+            console.log(Url);
+            //$scope.showLoader = true;
+            let username = $scope.uname;
+            let password = $scope.password;
+            let loginmodel = {
+                UserName: username,
+                Password: password
+            }
+            $http.post(Url + 'Teacherlogin/', loginmodel, { headers: { 'Content-Type': 'application/json' } })
+                .then(response => {
+                    console.log(response.data);
+                    alert('Login sucsessFully');
+                    location.reload();
+                }, error = (response) => {
+                    console.log(response);
+                    $scope.showLoader = false;
+                });
+        }
+  
+    });
+</script>
+
+<div ng-app="teacherLoginModule">
+    <div ng-controller="teacherLoginController">
+      
+            <div class="imgcontainer">
+                <img src="img_avatar2.png" alt="Avatar" class="avatar">
+            </div>
+
+            <div class="container">
+                <label for="uname"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="uname" required ng-model="uname">
+
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required ng-model="password">
+
+                <button type="submit" ng-click="Login()">Login</button>
+                <label>
+                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                </label>
+            </div>
+
+            <div class="container" style="background-color:#f1f1f1">
+                <button type="button" class="cancelbtn">Cancel</button>
+                <span class="psw">Forgot <a href="#">password?</a></span>
+            </div>
+
+        </div>
+    </div>
