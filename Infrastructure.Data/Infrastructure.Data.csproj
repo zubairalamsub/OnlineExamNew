@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\OnlineExam.Context\OnlineExam.Context.csproj" />
     <ProjectReference Include="..\OnlineExam.Entity.Interfaces\OnlineExam.Entity.Interfaces.csproj" />
     <ProjectReference Include="..\OnlineExam.Entity\OnlineExam.Entity.csproj" />

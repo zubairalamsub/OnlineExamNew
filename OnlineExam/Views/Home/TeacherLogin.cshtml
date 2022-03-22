@@ -1,7 +1,9 @@
 ﻿
 @{
     ViewData["Title"] = "TeacherLogin";
+    Layout = null;
 }
+
 <link href="~/css/style.css" rel="stylesheet" />
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <script type="text/javascript">
@@ -26,8 +28,18 @@
             $http.post(Url + 'Teacherlogin/', loginmodel, { headers: { 'Content-Type': 'application/json' } })
                 .then(response => {
                     console.log(response.data);
-                    alert('Login sucsessFully');
-                    location.reload();
+                    if(response.data==true)
+                    {
+                         window.location.href = '/Teacher/Index';
+                      //alert('Login sucsessFull');
+                    }
+                    if(response.data==false)
+                    {
+                        alert('Wrong UserName or Password');
+                          location.reload();
+                    }
+                    
+                  
                 }, error = (response) => {
                     console.log(response);
                     $scope.showLoader = false;
@@ -43,6 +55,8 @@
             <div class="imgcontainer">
                 <img src="img_avatar2.png" alt="Avatar" class="avatar">
             </div>
+
+
 
             <div class="container">
                 <label for="uname"><b>Username</b></label>

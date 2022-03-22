@@ -12,10 +12,12 @@ namespace OnlineExam.Controllers
     {
 
         private readonly ILoginService _loginService;
+        private readonly ITeacherService _teacherService;
 
-        public AccountController(ILoginService loginService)
+        public AccountController(ILoginService loginService,ITeacherService teacherService)
         {
             _loginService = loginService;
+            _teacherService = teacherService;
 
         }
         public IActionResult Index()
@@ -33,6 +35,11 @@ namespace OnlineExam.Controllers
 
             return View();
         }
+        public IActionResult CreateTeacher()
+        {
+            return View();
+        }
+
 
 
         [HttpPost]
@@ -60,6 +67,60 @@ namespace OnlineExam.Controllers
             return response.ToHttpResponse();
         }
 
+        [HttpGet]
+        [Route("api/LoadAllteacher")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> loadAllTeacher()
+        {
+            var response = new ListResponseModel<Teacher>();
+
+            try
+            {
+
+                var data = await _loginService.LoadAllTeacher();
+                response.Model = data;
+            }
+            catch (Exception exp)
+            {
+                response.DidError = true;
+                response.ErrorMessage = "There was an internal error, please contact to technical support.";
+            }
+
+            return response.ToHttpResponse();
+        }
+
+
+        [HttpPost]
+        [Route("Account/TeacherRegister")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> TeacherRegister([FromBody] Teacher teacher)
+        {
+            var response = new SingleResponseModel<Teacher>();
+
+            try
+            {
+
+                var data = await _loginService.TeacherRegister(teacher);
+                response.Model = data;
+            }
+            catch (Exception exp)
+            {
+                response.DidError = true;
+                response.ErrorMessage = "There was an internal error, please contact to technical support.";
+            }
+
+            return response.ToHttpResponse();
+        }
+
+
+
+
 
 
         [HttpPost]
@@ -84,7 +145,7 @@ namespace OnlineExam.Controllers
                     Response.Cookies.Append("Password", user.Password, option);
                     Response.Cookies.Append("AdminType", user.AdminType.ToString(), option);
                     Response.Cookies.Append("LoginType", "Teacher", option);
-                    Response.Cookies.Append("dtfullname", user.Name, option);
+                    Response.Cookies.Append("teacherfullName", user.Name, option);
                     return true;
                 }
                 return false;
@@ -96,7 +157,32 @@ namespace OnlineExam.Controllers
             }
 
 
+
+
         }
+
+        public IActionResult LogOut()
+        {
+            //Session.Remove("loggedinUser");
+            //var cookie = ControllerContext.HttpContext.Request.Cookies["userid"];
+            //cookie.Expires = DateTime.Now.AddDays(-1);
+            //Response.Cookies.Add(cookie);
+            HttpContext.Session.Clear();
+            CookieOptions option = new CookieOptions();
+            option.Expires = DateTime.Now.AddMinutes(-1);
+            Response.Cookies.Delete("Id");
+            Response.Cookies.Delete("UserName");
+            Response.Cookies.Delete("Password");
+            Response.Cookies.Delete("AdminType");
+            Response.Cookies.Delete("LoginType");
+            Response.Cookies.Delete("teacherfullName");
+            
+
+            return RedirectToAction("TeacherLogin", "Home");
+        }
+
+
+
 
 
     }

@@ -35,6 +35,8 @@ namespace OnlineExam
             services.AddDbContext<OnlineExamContext>(options => options.UseSqlServer(Configuration["ConnectionString:MsSqlConnection"]));
             services.AddTransient<ILoginService, LoginService>();
             services.AddTransient<ILoginRepository, LoginRepository>();
+            services.AddTransient<ITeacherService, TeacherService>();
+            services.AddTransient<ITeacherRepository,TeacherRepository>();
             services.AddSession();
         }
 

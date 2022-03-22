@@ -27,12 +27,27 @@ namespace OnlineExam.Services
             var data = await _loginRepository.UserRegister(student);
             return data;
         }
+        public async Task<Teacher> TeacherRegister(Teacher teacher)
+        {
+
+            var data = await _loginRepository.TeacherRegister(teacher);
+            return data;
+        }
         public async Task<Teacher> GetAllTeacher(loginViewModel loginViewModel)
         {
 
             var data = await _loginRepository.GetAllTeacher(loginViewModel);
             return data;
         }
+
+        public async Task<IEnumerable<Teacher>> LoadAllTeacher()
+        {
+            var data= await _loginRepository.LoadAllTeacher();
+            return data;
+        }
+
+
+
 
     }
 }

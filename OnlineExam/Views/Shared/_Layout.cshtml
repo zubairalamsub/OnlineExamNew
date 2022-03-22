@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - OnlineExam</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <script src="https://code.angularjs.org/1.2.14/angular.js"></script>
     @*<script src="https://code.jquery.com/jquery-1.12.4.js"
             integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
             crossorigin="anonymous">
@@ -29,6 +30,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
                     </ul>
+                     <span class="pull-right" style=" padding-top: 15px; color: black;">Welcome, <span id="teacherfullName"></span> [ <a href="@Url.Action("LogOut", "Account")" class="btn-link" style="color: red;">Log Out</a> ]</span>
                 </div>
             </div>
         </nav>
@@ -51,5 +53,24 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+      function getCookie(c_name) {
+    if (document.cookie.length > 0) {
+        c_start = document.cookie.indexOf(c_name + "=");
+        if (c_start != -1) {
+            c_start = c_start + c_name.length + 1;
+            c_end = document.cookie.indexOf(";", c_start);
+            if (c_end == -1) {
+                c_end = document.cookie.length;
+            }
+            return unescape(document.cookie.substring(c_start, c_end));
+        }
+    }
+    return "";
+}
+ $("#teacherfullName").text(getCookie("teacherfullName"));
+
+    </script>
 </body>
 </html>
