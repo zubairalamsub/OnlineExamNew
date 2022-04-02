@@ -108,14 +108,55 @@ namespace OnlineExam.Controllers
 
 		}
 
+		[HttpPost]
+		[Route("api/AssignTeacherToClass")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(201)]
+		[ProducesResponseType(400)]
+		[ProducesResponseType(500)]
+		public async Task<IActionResult> AssignTeacherToClass([FromBody] AssignClass assign)
+		{
+			var response = new SingleResponseModel<int>();
 
+			try
+			{
+				var data = await _techerService.AssignTeacherToClass(assign);
+				response.Model = data;
+			}
+			catch (Exception exp)
+			{
+				response.DidError = true;
+				response.ErrorMessage = "There was an internal error, please contact to technical support.";
+			}
+
+			return response.ToHttpResponse();
+		}
+
+		[HttpPost]
+		[Route("api/SaveExamFnfo")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(201)]
+		[ProducesResponseType(400)]
+		[ProducesResponseType(500)]
+		public async Task<IActionResult> SaveExamFnfo([FromBody] ExamInfo examInfo)
+		{
+			var response = new SingleResponseModel<int>();
+
+			try
+			{
+				var data = await _techerService.SaveExamFnfo(examInfo);
+				response.Model = data;
+			}
+			catch (Exception exp)
+			{
+				response.DidError = true;
+				response.ErrorMessage = "There was an internal error, please contact to technical support.";
+			}
+
+			return response.ToHttpResponse();
+		}
 
 	}
-
-
-
-
-
 
 }
 

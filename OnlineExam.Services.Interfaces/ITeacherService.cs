@@ -11,6 +11,9 @@ namespace OnlineExam.Services.Interfaces
     {
         Task<int> UploadQuestion(List<Questions> questins);
         Task<IEnumerable<Class>> LoadAllClasses();
+        Task<int> AssignTeacherToClass(AssignClass assignTeacher);
+        Task<int> SaveExamFnfo(ExamInfo examInfo);
+
 
     }
 }

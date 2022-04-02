@@ -31,6 +31,22 @@ namespace OnlineExam.Services
             var data=await _teacherRepository.LoadAllClasses();
             return data;
         }
+       public async Task<int> AssignTeacherToClass(AssignClass assignTeacher)
+        {
+            var data = await _teacherRepository.AssignTeacherToClass(assignTeacher);
+            return data;
+
+        }
+
+        public async Task<int> SaveExamFnfo(ExamInfo examInfo)
+        {
+
+            var data = await _teacherRepository.SaveExamFnfo(examInfo);
+            return data;
+        }
+
+
+
 
 
     }

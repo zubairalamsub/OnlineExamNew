@@ -43,9 +43,38 @@ namespace Infrastructure.Data
 
         public async Task<int> AssignTeacherToClass(AssignClass assignTeacher)
         {
-            await _sqlServerContext.AssignTeacher.AddAsync(assignTeacher);
-            return await _sqlServerContext.SaveChangesAsync();
+            try
+            {
+                await _sqlServerContext.AssignClass.AddAsync(assignTeacher);
+                return await _sqlServerContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
 
+                throw ex;
+            }
+
+        }
+
+       public async Task<int> SaveExamFnfo(ExamInfo examInfo)
+        {
+
+            try
+            {
+                await _sqlServerContext.ExamInfo.AddAsync(examInfo);
+                return await _sqlServerContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public async Task<int>CreateExam(Exam exam)
+        {
+            await _sqlServerContext.Exam.AddAsync(exam);
+            return await _sqlServerContext.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Class>> LoadAllClasses()
@@ -66,6 +95,8 @@ namespace Infrastructure.Data
                 throw ex;
             }
         }
+
+
 
     }
 }
