@@ -32,6 +32,11 @@ namespace OnlineExam.Controllers
 
         }
 
+	    public IActionResult CreateStudentId()
+        {
+			return View();
+        }
+
 
 
 		[HttpGet]
