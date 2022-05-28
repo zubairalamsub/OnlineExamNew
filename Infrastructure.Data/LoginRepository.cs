@@ -88,6 +88,19 @@ namespace Infrastructure.Data
             }
         }
 
+        public async Task<Student> UpdateStudent(Student student )
+        {
+
+            var students = _sqlServerContext.Students.Where(d => d.Id == student.Id).First();
+            students.Name = student.Name;
+            students.Email = student.Email;
+            students.PhoneNumber = student.PhoneNumber;
+            students.Password = student.Password;
+            students.UserName = student.UserName;
+            students.ClassId = student.ClassId;
+            await _sqlServerContext.SaveChangesAsync();
+            return students ;
+        }
 
     }
 }

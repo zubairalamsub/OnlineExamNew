@@ -45,6 +45,12 @@ namespace OnlineExam.Services
             var data= await _loginRepository.LoadAllTeacher();
             return data;
         }
+        public async Task<Student> UpdateStudent(Student student)
+        {
+
+            var data = await _loginRepository.UpdateStudent(student);
+            return data;
+        }
 
 
 

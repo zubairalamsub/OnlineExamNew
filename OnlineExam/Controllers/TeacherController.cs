@@ -32,8 +32,6 @@ namespace OnlineExam.Controllers
 
         }
 
-
-
 		[HttpGet]
 		[Route("api/LoadAllClass")]
 		[ProducesResponseType(200)]
@@ -108,7 +106,30 @@ namespace OnlineExam.Controllers
 
 		}
 
+		[HttpPost]
+		[Route("api/Assignteacher")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(201)]
+		[ProducesResponseType(400)]
+		[ProducesResponseType(500)]
+		public async Task<IActionResult> TeacherRegister([FromBody] AssignClass assignClass)
+		{
+			var response = new SingleResponseModel<int>();
 
+			try
+			{
+
+				var data = await _techerService.AssignTeacherToClass(assignClass);
+				response.Model = data;
+			}
+			catch (Exception exp)
+			{
+				response.DidError = true;
+				response.ErrorMessage = "There was an internal error, please contact to technical support.";
+			}
+
+			return response.ToHttpResponse();
+		}
 
 	}
 

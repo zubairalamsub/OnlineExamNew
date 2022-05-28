@@ -118,10 +118,30 @@ namespace OnlineExam.Controllers
             return response.ToHttpResponse();
         }
 
+        [HttpPost]
+        [Route("Account/UpdateStudent")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> UpdateStudent([FromBody] Student student)
+        {
+            var response = new SingleResponseModel<Student>();
 
+            try
+            {
 
+                var data = await _loginService.UpdateStudent(student);
+                response.Model = data;
+            }
+            catch (Exception exp)
+            {
+                response.DidError = true;
+                response.ErrorMessage = "There was an internal error, please contact to technical support.";
+            }
 
-
+            return response.ToHttpResponse();
+        }
 
         [HttpPost]
         [Route("api/Teacherlogin")]
@@ -155,9 +175,6 @@ namespace OnlineExam.Controllers
 
                 throw ex;
             }
-
-
-
 
         }
 

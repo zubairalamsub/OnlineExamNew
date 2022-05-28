@@ -7,31 +7,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineExam", "OnlineExam\On
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entity", "Entity", "{76924FBF-E75D-4A8A-A2AE-A08628931177}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineExam.Entity", "OnlineExam.Entity\OnlineExam.Entity.csproj", "{3E93D42F-D06E-4103-8FD9-45D7D8D9E987}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IRepositories", "IRepositories", "{F0635F2B-243A-4DCC-BDD8-15F1923529F9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineExam.IRepositories", "OnlineExam.IRepositories\OnlineExam.IRepositories.csproj", "{68F4BCF2-26FF-4755-95E8-25057B39E771}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repositories", "Repositories", "{1154C2F3-A939-43F5-B7F7-F36BC80FDF42}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineExam.Repositories", "OnlineExam.Repositories\OnlineExam.Repositories.csproj", "{EB1AE1C8-0BB9-434E-B5B7-E416DC375D1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineExam.Entity", "OnlineExam.Entity\OnlineExam.Entity.csproj", "{3E93D42F-D06E-4103-8FD9-45D7D8D9E987}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infrastructure", "infrastructure", "{4255C208-3705-49B5-B65F-E174533D53A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Data", "Infrastructure.Data\Infrastructure.Data.csproj", "{B689B514-4784-4BCA-A220-431A7078B05B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.Data", "Infrastructure.Data\Infrastructure.Data.csproj", "{B689B514-4784-4BCA-A220-431A7078B05B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineExam.Context", "OnlineExam.Context\OnlineExam.Context.csproj", "{C937511C-5F59-4437-89F2-437A064CAE2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineExam.Context", "OnlineExam.Context\OnlineExam.Context.csproj", "{C937511C-5F59-4437-89F2-437A064CAE2B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{257D8C7F-68FD-4310-B837-4BEC4A9D38FE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IServices", "IServices", "{C0A364CF-6FE7-4ADB-AE04-CCF1C92407E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineExam.Services", "OnlineExam.Services\OnlineExam.Services.csproj", "{3067AD70-2256-4F2C-905E-75BCC04908C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineExam.Services", "OnlineExam.Services\OnlineExam.Services.csproj", "{3067AD70-2256-4F2C-905E-75BCC04908C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineExam.Services.Interfaces", "OnlineExam.Services.Interfaces\OnlineExam.Services.Interfaces.csproj", "{C423DA7C-2F1B-475B-8CC7-2532AB21964E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineExam.Services.Interfaces", "OnlineExam.Services.Interfaces\OnlineExam.Services.Interfaces.csproj", "{C423DA7C-2F1B-475B-8CC7-2532AB21964E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineExam.Entity.Interfaces", "OnlineExam.Entity.Interfaces\OnlineExam.Entity.Interfaces.csproj", "{2ADF3B05-3160-4B96-9A3E-A7580235CF78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineExam.Entity.Interfaces", "OnlineExam.Entity.Interfaces\OnlineExam.Entity.Interfaces.csproj", "{2ADF3B05-3160-4B96-9A3E-A7580235CF78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,14 +39,6 @@ Global
 		{3E93D42F-D06E-4103-8FD9-45D7D8D9E987}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E93D42F-D06E-4103-8FD9-45D7D8D9E987}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E93D42F-D06E-4103-8FD9-45D7D8D9E987}.Release|Any CPU.Build.0 = Release|Any CPU
-		{68F4BCF2-26FF-4755-95E8-25057B39E771}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68F4BCF2-26FF-4755-95E8-25057B39E771}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68F4BCF2-26FF-4755-95E8-25057B39E771}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68F4BCF2-26FF-4755-95E8-25057B39E771}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EB1AE1C8-0BB9-434E-B5B7-E416DC375D1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EB1AE1C8-0BB9-434E-B5B7-E416DC375D1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EB1AE1C8-0BB9-434E-B5B7-E416DC375D1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EB1AE1C8-0BB9-434E-B5B7-E416DC375D1A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B689B514-4784-4BCA-A220-431A7078B05B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B689B514-4784-4BCA-A220-431A7078B05B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B689B514-4784-4BCA-A220-431A7078B05B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -81,8 +65,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3E93D42F-D06E-4103-8FD9-45D7D8D9E987} = {76924FBF-E75D-4A8A-A2AE-A08628931177}
-		{68F4BCF2-26FF-4755-95E8-25057B39E771} = {F0635F2B-243A-4DCC-BDD8-15F1923529F9}
-		{EB1AE1C8-0BB9-434E-B5B7-E416DC375D1A} = {1154C2F3-A939-43F5-B7F7-F36BC80FDF42}
 		{B689B514-4784-4BCA-A220-431A7078B05B} = {4255C208-3705-49B5-B65F-E174533D53A7}
 		{C937511C-5F59-4437-89F2-437A064CAE2B} = {4255C208-3705-49B5-B65F-E174533D53A7}
 		{3067AD70-2256-4F2C-905E-75BCC04908C9} = {257D8C7F-68FD-4310-B837-4BEC4A9D38FE}
