@@ -16,8 +16,10 @@ namespace OnlineExam.Context
         public DbSet<Student> Students { get; set; }
         public DbSet<Teacher> Teacher { get; set; }
         public DbSet<Questions> Questions { get; set; }
-        public DbSet<AssignClass> AssignTeacher { get; set; }
+        public DbSet<AssignClass> AssignClass { get; set; }
         public DbSet<ClassInfo> ClassInfo { get; set; }
+        public DbSet<ExamInfo> ExamInfo { get; set; }
+        public DbSet<Exam> Exam { get; set; }
 
     }
 }

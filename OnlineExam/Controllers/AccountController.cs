@@ -43,7 +43,7 @@ namespace OnlineExam.Controllers
 
 
         [HttpPost]
-        [Route("UserRegister")]
+        [Route("api/UserRegister")]
         [ProducesResponseType(200)]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]

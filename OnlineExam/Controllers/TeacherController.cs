@@ -32,6 +32,16 @@ namespace OnlineExam.Controllers
 
         }
 
+<<<<<<< HEAD
+=======
+	    public IActionResult CreateStudentId()
+        {
+			return View();
+        }
+
+
+
+>>>>>>> 8eff51d450f60c98971d1b03668844e2a88912c8
 		[HttpGet]
 		[Route("api/LoadAllClass")]
 		[ProducesResponseType(200)]
@@ -107,11 +117,16 @@ namespace OnlineExam.Controllers
 		}
 
 		[HttpPost]
+<<<<<<< HEAD
 		[Route("api/Assignteacher")]
+=======
+		[Route("api/AssignTeacherToClass")]
+>>>>>>> 8eff51d450f60c98971d1b03668844e2a88912c8
 		[ProducesResponseType(200)]
 		[ProducesResponseType(201)]
 		[ProducesResponseType(400)]
 		[ProducesResponseType(500)]
+<<<<<<< HEAD
 		public async Task<IActionResult> TeacherRegister([FromBody] AssignClass assignClass)
 		{
 			var response = new SingleResponseModel<int>();
@@ -130,13 +145,51 @@ namespace OnlineExam.Controllers
 
 			return response.ToHttpResponse();
 		}
+=======
+		public async Task<IActionResult> AssignTeacherToClass([FromBody] AssignClass assign)
+		{
+			var response = new SingleResponseModel<int>();
+
+			try
+			{
+				var data = await _techerService.AssignTeacherToClass(assign);
+				response.Model = data;
+			}
+			catch (Exception exp)
+			{
+				response.DidError = true;
+				response.ErrorMessage = "There was an internal error, please contact to technical support.";
+			}
+>>>>>>> 8eff51d450f60c98971d1b03668844e2a88912c8
+
+			return response.ToHttpResponse();
+		}
+
+		[HttpPost]
+		[Route("api/SaveExamFnfo")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(201)]
+		[ProducesResponseType(400)]
+		[ProducesResponseType(500)]
+		public async Task<IActionResult> SaveExamFnfo([FromBody] ExamInfo examInfo)
+		{
+			var response = new SingleResponseModel<int>();
+
+			try
+			{
+				var data = await _techerService.SaveExamFnfo(examInfo);
+				response.Model = data;
+			}
+			catch (Exception exp)
+			{
+				response.DidError = true;
+				response.ErrorMessage = "There was an internal error, please contact to technical support.";
+			}
+
+			return response.ToHttpResponse();
+		}
 
 	}
-
-
-
-
-
 
 }
 
