@@ -31,17 +31,12 @@ namespace OnlineExam.Controllers
             return View();
 
         }
-
-<<<<<<< HEAD
-=======
 	    public IActionResult CreateStudentId()
         {
 			return View();
         }
 
 
-
->>>>>>> 8eff51d450f60c98971d1b03668844e2a88912c8
 		[HttpGet]
 		[Route("api/LoadAllClass")]
 		[ProducesResponseType(200)]
@@ -117,16 +112,14 @@ namespace OnlineExam.Controllers
 		}
 
 		[HttpPost]
-<<<<<<< HEAD
+
 		[Route("api/Assignteacher")]
-=======
+
 		[Route("api/AssignTeacherToClass")]
->>>>>>> 8eff51d450f60c98971d1b03668844e2a88912c8
 		[ProducesResponseType(200)]
 		[ProducesResponseType(201)]
 		[ProducesResponseType(400)]
 		[ProducesResponseType(500)]
-<<<<<<< HEAD
 		public async Task<IActionResult> TeacherRegister([FromBody] AssignClass assignClass)
 		{
 			var response = new SingleResponseModel<int>();
@@ -145,7 +138,7 @@ namespace OnlineExam.Controllers
 
 			return response.ToHttpResponse();
 		}
-=======
+
 		public async Task<IActionResult> AssignTeacherToClass([FromBody] AssignClass assign)
 		{
 			var response = new SingleResponseModel<int>();
@@ -160,8 +153,6 @@ namespace OnlineExam.Controllers
 				response.DidError = true;
 				response.ErrorMessage = "There was an internal error, please contact to technical support.";
 			}
->>>>>>> 8eff51d450f60c98971d1b03668844e2a88912c8
-
 			return response.ToHttpResponse();
 		}
 
@@ -188,6 +179,40 @@ namespace OnlineExam.Controllers
 
 			return response.ToHttpResponse();
 		}
+
+
+		public IActionResult Exam()
+        {
+
+			return View();
+        }
+
+
+		[HttpPost]
+		[Route("api/LoadQuestionForExam")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(201)]
+		[ProducesResponseType(400)]
+		[ProducesResponseType(500)]
+		public async Task<IActionResult> LoadQuestionForExam([FromBody] QuestionRequest question)
+		{
+			var response = new ListResponseModel<Questions>();
+
+			try
+			{
+				var data = await _techerService.LoadQuestionForExam(question);
+				response.Model = data;
+			}
+			catch (Exception exp)
+			{
+				response.DidError = true;
+				response.ErrorMessage = "There was an internal error, please contact to technical support.";
+			}
+
+			return response.ToHttpResponse();
+		}
+
+
 
 	}
 

@@ -45,16 +45,24 @@ namespace OnlineExam.Services
             return data;
         }
 
-
-
-
-       public async Task<int> AssignTeacherToClass(AssignClass assignTeacher)
+        public async Task<List<Questions>> LoadQuestionForExam(QuestionRequest question)
         {
-
-            var data = await _teacherRepository.AssignTeacherToClass(assignTeacher);
+            var data = await _teacherRepository.LoadQuestionForExam(question);
             return data;
 
+
         }
+
+
+
+
+        //public async Task<int> AssignTeacherToClass(AssignClass assignTeacher)
+        // {
+
+        //     var data = await _teacherRepository.AssignTeacherToClass(assignTeacher);
+        //     return data;
+
+        // }
 
 
     }

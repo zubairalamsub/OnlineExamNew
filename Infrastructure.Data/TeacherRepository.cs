@@ -97,6 +97,26 @@ namespace Infrastructure.Data
         }
 
 
+       public async Task<List<Questions>> LoadQuestionForExam(QuestionRequest question)
+        {
+            List<Questions> c = _sqlServerContext.Questions.Select(x => new Questions
+            {
+                Id=x.Id,
+                Name=x.Name,
+                FirstOption=x.FirstOption,
+                SceondOption=x.SceondOption,
+                ThirdOption=x.ThirdOption,
+                FourthOption=x.FourthOption,
+                Answer=x.Answer,
+                ClassId=x.ClassId,
+
+
+            }).ToList();
+            return c;
+
+        }
+
+
 
     }
 }

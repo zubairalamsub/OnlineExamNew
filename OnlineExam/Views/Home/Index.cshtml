@@ -2,8 +2,47 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@*<div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    </div>*@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<div>
+    <h1>Question</h1>
+    <form action="">
+
+
+        <table class="table">
+            <tbody id="question"></tbody>
+
+        </table>
+        <input type="submit" value="Submit" />
+    </form>
+</div>
+<script>
+    $(document).ready(function () {
+        debugger;
+
+        var upQuestion = '';
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: "https://localhost:5001/api/LoadQuestionForExam",
+            dataType: "json",
+            async: true,
+            beforeSend: function () {
+                nextRequestAllow = false;
+            },
+            complete: function () {
+
+                nextRequestAllow = true;
+            },
+            success: function (data) {
+                console.log(data)
+            }
+
+
+        });
+    });
+</script>
