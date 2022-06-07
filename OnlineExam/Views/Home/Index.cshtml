@@ -21,8 +21,8 @@
     </form>
 </div>
 <script>
-    $(document).ready(function () {
-        debugger;
+    $(document).ready(function (data) {
+        
 
         var upQuestion = '';
         $.ajax({
@@ -40,7 +40,36 @@
             },
             success: function (data) {
                 console.log(data)
+                var table = document.getElementById('question')
+                for (var i = 0; i < data.model.length; i++) {
+                    var row = `<tr>
+							<td>${data.model[i].name}</td>
+							
+					  </tr>
+                      <tr>
+                        <td><input id="${data.model[i].firstOption}" type="radio" name="${data.model[i].id}" class="rounded - bottom" value="${data.model[i].firstOption}" /> ${data.model[i].firstOption}</td>
+							
+                        </tr>
+                       <tr>
+                        <td><input id="${data.model[i].sceondOption}" type="radio" name="${data.model[i].id}" class="rounded - bottom" value="${data.model[i].sceondOption}" /> ${data.model[i].sceondOption}</td>
+
+                        </tr>
+                        <tr>
+                        <td><input id="${data.model[i].thirdOption}" type="radio" name="${data.model[i].id}" class="rounded - bottom" value="${data.model[i].thirdOption}" /> ${data.model[i].thirdOption}</td>
+
+                        </tr>
+                        <tr>
+                        <td><input id="${data.model[i].firstOption}" type="radio" name="${data.model[i].id}" class="rounded - bottom" value="${data.model[i].firstOption}" /> ${data.model[i].firstOption}</td>
+
+                        </tr>
+                      
+                      `
+                    table.innerHTML += row
+                }
+                
+                
             }
+
 
 
         });
