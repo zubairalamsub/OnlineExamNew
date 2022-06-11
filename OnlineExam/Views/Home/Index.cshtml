@@ -7,6 +7,12 @@
         <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     </div>*@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+    .table td, .table th {
+        border-top: none !important;
+    }
+</style>
+
 
 <div>
     <h1>Question</h1>
@@ -41,12 +47,13 @@
             success: function (data) {
                 console.log(data)
                 var table = document.getElementById('question')
-                for (var i = 0; i < data.model.length; i++) {
+                for (var i = 1; i <= data.model.length; i++) {
                     var row = `<tr>
-							<td>${data.model[i].name}</td>
+                             
+							<td>${i}: ${data.model[i].name}</td>
 							
 					  </tr>
-                      <tr>
+                      <tr">
                         <td><input id="${data.model[i].firstOption}" type="radio" name="${data.model[i].id}" class="rounded - bottom" value="${data.model[i].firstOption}" /> ${data.model[i].firstOption}</td>
 							
                         </tr>
