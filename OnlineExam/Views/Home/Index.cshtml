@@ -7,9 +7,18 @@
         <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     </div>*@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+    .table td, .table th {
+        border-top: none !important;
+    }
+</style>
 
 <div>
+    <label>Time: </label><span id="time001" style="font-size:inherit">60</span>
+</div>
+<div> 
     <h1>Question</h1>
+    
     <form action="">
 
 
@@ -20,6 +29,30 @@
         <input type="submit" value="Submit" />
     </form>
 </div>
+<script>
+    var c = 60;
+    function timer001() {
+        c = c - 1;
+        if (c < 60) {
+            time001.innerHTML = c;
+        }
+
+        if (c < 1) {
+            window.clearInterval(update);
+            message001.innerHTML = "Time's up";
+            message002.innerHTML = "";
+            message003.innerHTML = "";
+            message004.innerHTML = "<button class=buttons002 onclick=repeat001()>Repeat</button>";
+        }
+    }
+
+    update = setInterval("timer001()", 1000);
+
+    function repeat001() {
+        location.reload();
+    }
+
+</script>
 <script>
     $(document).ready(function (data) {
         
@@ -41,12 +74,13 @@
             success: function (data) {
                 console.log(data)
                 var table = document.getElementById('question')
-                for (var i = 0; i < data.model.length; i++) {
+                for (var i = 1; i <= data.model.length; i++) {
                     var row = `<tr>
-							<td>${data.model[i].name}</td>
+                             
+							<td>${i}: ${data.model[i].name}</td>
 							
 					  </tr>
-                      <tr>
+                      <tr">
                         <td><input id="${data.model[i].firstOption}" type="radio" name="${data.model[i].id}" class="rounded - bottom" value="${data.model[i].firstOption}" /> ${data.model[i].firstOption}</td>
 							
                         </tr>
