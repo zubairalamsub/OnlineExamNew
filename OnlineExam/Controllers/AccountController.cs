@@ -119,7 +119,7 @@ namespace OnlineExam.Controllers
         }
 
         [HttpPost]
-        [Route("Account/UpdateStudent")]
+        [Route("api/UpdateStudent")]
         [ProducesResponseType(200)]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
