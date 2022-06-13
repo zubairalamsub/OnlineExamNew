@@ -11,6 +11,7 @@
             let hostName = window.location.protocol + "//" + window.location.hostname;
             let portName = window.location.port;
             Url = `${hostName}${portName != "" ? `:${portName}/api/` : `/api/`}`;
+            $scope.showinput = false;
 
          angular.element(document).ready(function () {
   
@@ -41,9 +42,10 @@
             $http.post(Url + 'UserRegister/', assignModel, { headers: { 'Content-Type': 'application/json' } })
                 .then(response => {
                     console.log(response.data);
-                     $scope.IdText =  response.data.model.id;
+                    $scope.IdText =  response.data.model.id;
+                    $scope.showinput = true;
                   
-                  alert("Assign Successfull")
+                  alert("Successfully Added")
                   
                 }, error = (response) => {
                     console.log(response);
@@ -51,6 +53,18 @@
                 });
         }
 
+
+            $scope.CopyText = () => {
+
+                let cText = $scope.IdText;
+               
+                navigator.clipboard.writeText(cText); 
+                alert(cText + "Copid Successfully");
+                
+                
+                /* Copy the text inside the text field */
+
+            }
 
 
         });
@@ -66,8 +80,11 @@
 <div ng-controller="AssignCtrl">
 <form class="form-inline">
 
-  <button type="submit" class="btn btn-primary my-1" ng-click="CreateStudent()">Create</button>
-  <span id="myspan" contenteditable="true" ng-bind="IdText"></span><br><br><br>
+  <button type="submit" class="btn btn-primary my-1" ng-click="CreateStudent()">Create New</button>
+  <input type="text" id="lname" name="lname" ng-model="IdText" ng-show="showinput">
+
+
+  <button type="submit" class="btn btn-primary my-1" ng-click="CopyText()">Copy Link</button>
 </form>
 </div>
 </div>
