@@ -97,7 +97,7 @@ namespace Infrastructure.Data
             students.PhoneNumber = student.PhoneNumber;
             students.Password = student.Password;
             students.UserName = student.UserName;
-            students.ClassId = student.ClassId;
+            //students.ClassId = student.ClassId;
             await _sqlServerContext.SaveChangesAsync();
             return students ;
         }

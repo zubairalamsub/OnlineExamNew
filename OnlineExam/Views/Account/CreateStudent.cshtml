@@ -50,17 +50,23 @@ background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244
            
 
          angular.element(document).ready(function () {
-
+/*
              const params = new URLSearchParams(window.location.search)
            for (const param of params) {
                 console.log(param)
-}
+             }*/
   
         });
            
 
          $scope.CreateStudent = () => {
             $scope.showTable = false;
+             let idQString ='';
+             const params = new URLSearchParams(window.location.search)
+           for (const param of params) {
+              idQString = param[0];
+
+             }
            /* $scope.showTable1 = false;*/
             let Url = "";
             let hostName = window.location.protocol + "//" + window.location.hostname;
@@ -70,13 +76,12 @@ background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244
             //$scope.showLoader = true;
             let teacher = parseInt($scope.teacher);
             let classId = parseInt($scope.class);
-            let un=$scope.studentName+Math.floor(Math.random() * 100)
+            let un= $scope.studentName.replace(/\s/g, "")+Math.floor(Math.random() * 100)
             let assignModel = {
-                Id: 0,
+                Id: parseInt(idQString),
                 Name:$scope.studentName,
                 UserName: un,
-                Password: "",
-                ClassId: 0,
+                Password: $scope.password,
                 PhoneNumber: $scope.mobile,
                 Email:$scope.email
             }
@@ -148,7 +153,7 @@ background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244
 
                 <div class="d-flex justify-content-center">
                   <button type="button"
-                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
+                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" ng-click="CreateStudent()">Register</button>
                 </div>
 
                 <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="#!"
