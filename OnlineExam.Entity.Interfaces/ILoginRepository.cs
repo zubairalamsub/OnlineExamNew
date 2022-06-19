@@ -14,5 +14,6 @@ namespace OnlineExam.Entity.Interfaces
         Task<Teacher> TeacherRegister(Teacher teacher);
         Task<IEnumerable<Teacher>> LoadAllTeacher();
         Task<Student> UpdateStudent(Student student);
+        Task<Student> GetAllStudent(loginViewModel loginViewModel);
     }
 }

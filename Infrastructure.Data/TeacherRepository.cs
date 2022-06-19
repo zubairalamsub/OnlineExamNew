@@ -99,20 +99,47 @@ namespace Infrastructure.Data
 
        public async Task<List<Questions>> LoadQuestionForExam(QuestionRequest question)
         {
-            List<Questions> c = _sqlServerContext.Questions.Select(x => new Questions
-            {
-                Id=x.Id,
-                Name=x.Name,
-                FirstOption=x.FirstOption,
-                SceondOption=x.SceondOption,
-                ThirdOption=x.ThirdOption,
-                FourthOption=x.FourthOption,
-                Answer=x.Answer,
-                ClassId=x.ClassId,
+            //List<Questions> c = _sqlServerContext.Questions.Select(x => new Questions
+            //{
+            //    Id=x.Id,
+            //    Name=x.Name,
+            //    FirstOption=x.FirstOption,
+            //    SceondOption=x.SceondOption,
+            //    ThirdOption=x.ThirdOption,
+            //    FourthOption=x.FourthOption,
+            //    Answer=x.Answer,
+            //    ClassId=x.ClassId,
 
 
-            }).ToList();
-            return c;
+            //}).ToList();
+            //return c;
+
+
+            //var studentInfo = from q in _sqlServerContext.Questions
+            //                  join e in _sqlServerContext.Exam
+            //                  on q.Name equals e.QuestionName  && q.ClassId equals question.ClassId
+            //                  select new { student.student_name, student.student_city, course.course_name, course.course_desc };
+
+
+            var x = from t1 in _sqlServerContext.Questions
+                    from t2 in _sqlServerContext.Exam.Where(x => t1.Name == x.QuestionName && Convert.ToInt32(t1.ClassId) == x.ClassId && x.Id==question.ExamId)
+
+                    select new Questions
+                    {
+                        Id = t1.Id,
+                        Name = t1.Name,
+                        FirstOption = t1.FirstOption,
+                        SceondOption = t1.SceondOption,
+                        ThirdOption = t1.ThirdOption,
+                        FourthOption = t1.FourthOption,
+                        Answer = t1.Answer,
+                        Title=t1.Title
+
+
+                    };
+            return x.ToList();
+
+
 
         }
 

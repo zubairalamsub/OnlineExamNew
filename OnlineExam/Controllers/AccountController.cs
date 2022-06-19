@@ -186,13 +186,14 @@ namespace OnlineExam.Controllers
         {
             try
             {
-                var user = await _loginService.GetAllTeacher(userlogIn);
+                var user = await _loginService.GetAllStudent(userlogIn);
                 if (user != null)
                 {
 
                     HttpContext.Session.SetInt32("StudentId", user.Id);
                     HttpContext.Session.SetString("StudentUserName", user.UserName);
                     HttpContext.Session.SetString("StudentPassword", user.Password);
+                    HttpContext.Session.SetString("StudentClassId", user.ClassId.ToString());
                     //HttpContext.Session.SetInt32("AdminType", Convert.ToInt32(user.AdminType));
                     HttpContext.Session.SetString("LoginType", "Student");
                     CookieOptions option = new CookieOptions();
@@ -200,7 +201,8 @@ namespace OnlineExam.Controllers
                     Response.Cookies.Append("StudentId", user.Id.ToString(), option);
                     Response.Cookies.Append("StudentUserName", user.UserName, option);
                     Response.Cookies.Append("StudentPassword", user.Password, option);
-                    Response.Cookies.Append("AdminType", user.AdminType.ToString(), option);
+                    Response.Cookies.Append("StudentClassId", user.ClassId.ToString(), option);
+                    //Response.Cookies.Append("AdminType", user.AdminType.ToString(), option);
                     Response.Cookies.Append("LoginType", "Student", option);
                     Response.Cookies.Append("StudentfullName", user.Name, option);
                     return true;
@@ -229,8 +231,6 @@ namespace OnlineExam.Controllers
             //Response.Cookies.Delete("AdminType");
             //Response.Cookies.Delete("LoginType");
             Response.Cookies.Delete("teacherfullName");
-            
-
             return RedirectToAction("TeacherLogin", "Home");
         }
 
@@ -250,7 +250,7 @@ namespace OnlineExam.Controllers
             //Response.Cookies.Delete("AdminType");
             //Response.Cookies.Delete("LoginType");
             Response.Cookies.Delete("StudentfullName");
-            return RedirectToAction("TeacherLogin", "Home");
+            return RedirectToAction("StudentLogin", "Home");
         }
 
 

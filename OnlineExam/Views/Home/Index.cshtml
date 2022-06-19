@@ -17,7 +17,7 @@
     <label>Time: </label><span id="time001" style="font-size:inherit">60</span>
 </div>
 <div> 
-    <h1>Question</h1>
+    <h3 id="qname"></h3>
     
     <form action="">
 
@@ -26,11 +26,12 @@
             <tbody id="question"></tbody>
 
         </table>
-        <input type="submit" value="Submit" />
+        <button  onclick="readyAnswer()" value="Submit" />
     </form>
 </div>
 <script>
     var c = 60;
+    var allQuestion;
     function timer001() {
         c = c - 1;
         if (c < 60) {
@@ -56,12 +57,19 @@
 <script>
     $(document).ready(function (data) {
         
+        loadQuetion();
+       
+    });
+    
 
-        var upQuestion = '';
-        let _hello = {
-            id: 1215,
-            name: "Emon",
-            quantity: 1
+function loadQuetion() {
+
+    var classid = parseInt(getCookie('StudentClassId'));
+
+    var upQuestion = '';
+        const bodydata= {
+            ExamId: 1,
+            ClassId:classid,
         }
         //fetch('https://localhost:5001/api/LoadQuestionForExam', { method: 'POST', body: 'Hello' })
         //    .then(results => results.json())
@@ -71,9 +79,10 @@
         $.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",
-            url: "https://localhost:5001/api/LoadQuestionForExam",
+            url: "https://localhost:44326/api/LoadQuestionForExam",
             dataType: "json",
-            body: JSON.stringify(_hello),
+            //dataType: "text",
+            data: JSON.stringify(bodydata), 
             async: true,
             beforeSend: function () {
                 nextRequestAllow = false;
@@ -83,12 +92,18 @@
                 nextRequestAllow = true;
             },
             success: function (data) {
-                console.log(_hello)
+                console.log(data)
+                allQuestion = data.model;
+                //$("#qname").val('Exam Name'+data.model[0].name);
+                $("h3").append(`Exam Name: ${data.model[0].name}`);
                 var table = document.getElementById('question')
-                for (var i = 1; i <= data.model.length; i++) {
+
+
+              
+                for (var i = 0; i < data.model.length; i++) {
                     var row = `<tr>
-                             
-							<td>${i}: ${data.model[i].name}</td>
+                  
+							<td>${i+1}: ${data.model[i].title}</td>
 							
 					  </tr>
                       <tr">
@@ -104,7 +119,7 @@
 
                         </tr>
                         <tr>
-                        <td><input id="${data.model[i].firstOption}" type="radio" name="${data.model[i].id}" class="rounded - bottom" value="${data.model[i].firstOption}" /> ${data.model[i].firstOption}</td>
+                        <td><input id="${data.model[i].fourthOption}" type="radio" name="${data.model[i].id}" class="rounded - bottom" value="${data.model[i].firstOption}" /> ${data.model[i].firstOption}</td>
 
                         </tr>
                       
@@ -118,8 +133,23 @@
 
 
         });
-    });
-        
+
+}
+
+          function readyAnswer() {
+
+                var arr = [];
+                var len = allQuestion.length;
+                 for (var i = 0; i < len; i++) {
+                arr.push({
+                    Id: allQuestion[i].id,
+                    sortable: true,
+                    resizeable: true
+                });
+            }
+              console.log(arr);
+
+            }
 
     function getCookie(c_name) {
         if (document.cookie.length > 0) {

@@ -35,7 +35,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
                     </ul>
-                     <span class="pull-right" style=" padding-top: 15px; color: black;">Welcome, <span id="teacherfullName"></span> [ <a href="@Url.Action("LogOut", "Account")" class="btn-link" style="color: red;">Log Out</a> ]</span>
+                     <span class="pull-right" style=" padding-top: 15px; color: black;">Welcome, <span id="teacherfullName"></span> [ <a href="@Url.Action("StudentLogOut", "Account")" class="btn-link" style="color: red;">Log Out</a> ]</span>
                 </div>
             </div>
         </nav>
@@ -74,7 +74,7 @@
     }
     return "";
 }
- $("#teacherfullName").text(getCookie("StudetfullName"));
+ $("#teacherfullName").text(getCookie("StudentfullName"));
 
     </script>
 </body>

@@ -11,7 +11,7 @@ namespace OnlineExam.Entity
 		public string QuestionName { get; set; }
 		public DateTime StartTime { get; set; }
 		public DateTime EndTime { get; set; }
-		public bool Comleted { get; set; }
+		public bool Completed { get; set; }
 
 	}
 }
