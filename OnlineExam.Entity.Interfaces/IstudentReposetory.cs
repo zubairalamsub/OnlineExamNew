@@ -9,6 +9,6 @@ namespace OnlineExam.Entity.Interfaces
     public interface IstudentReposetory
     {
 
-        Task<Student> GetAllStudent(loginViewModel loginViewModel);
+        //Task<Student> GetAllStudent(loginViewModel loginViewModel);
     }
 }
