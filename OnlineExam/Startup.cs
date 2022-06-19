@@ -1,4 +1,4 @@
-using Infrastructure.Data;
+    using Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -37,6 +37,8 @@ namespace OnlineExam
             services.AddTransient<ILoginRepository, LoginRepository>();
             services.AddTransient<ITeacherService, TeacherService>();
             services.AddTransient<ITeacherRepository,TeacherRepository>();
+            services.AddTransient<IstudentReposetory, StudentRepository>();
+            services.AddTransient<IStudentService, StudentService>();
             services.AddSession();
         }
 

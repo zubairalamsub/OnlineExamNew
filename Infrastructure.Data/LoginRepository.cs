@@ -64,6 +64,24 @@ namespace Infrastructure.Data
 
         }
 
+        public async Task<Student> GetAllStudent(loginViewModel loginViewModel)
+        {
+
+            var student = _sqlServerContext.Students.Where(a => a.UserName == loginViewModel.UserName
+             && a.Password.Equals(loginViewModel.Password)).Select(x => new Student
+             {
+                 Id = x.Id,
+                 Email = x.Email,
+                 Name = x.Name,
+                 Password = x.Password,
+                 PhoneNumber = x.PhoneNumber,
+                 UserName = x.UserName,
+                 ClassId=x.ClassId,
+             }).FirstOrDefault();
+            return student;
+
+        }
+
         public async Task<IEnumerable<Teacher>> LoadAllTeacher()
         {
             try

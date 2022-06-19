@@ -178,6 +178,42 @@ namespace OnlineExam.Controllers
 
         }
 
+
+
+        [HttpPost]
+        [Route("api/Studentlogin")]
+        public async Task<bool> StudentLogin([FromBody] loginViewModel userlogIn)
+        {
+            try
+            {
+                var user = await _loginService.GetAllTeacher(userlogIn);
+                if (user != null)
+                {
+
+                    HttpContext.Session.SetInt32("StudentId", user.Id);
+                    HttpContext.Session.SetString("StudentUserName", user.UserName);
+                    HttpContext.Session.SetString("StudentPassword", user.Password);
+                    //HttpContext.Session.SetInt32("AdminType", Convert.ToInt32(user.AdminType));
+                    HttpContext.Session.SetString("LoginType", "Student");
+                    CookieOptions option = new CookieOptions();
+                    option.Expires = DateTime.Now.AddMinutes(1000);
+                    Response.Cookies.Append("StudentId", user.Id.ToString(), option);
+                    Response.Cookies.Append("StudentUserName", user.UserName, option);
+                    Response.Cookies.Append("StudentPassword", user.Password, option);
+                    Response.Cookies.Append("AdminType", user.AdminType.ToString(), option);
+                    Response.Cookies.Append("LoginType", "Student", option);
+                    Response.Cookies.Append("StudentfullName", user.Name, option);
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
         public IActionResult LogOut()
         {
             //Session.Remove("loggedinUser");
@@ -190,13 +226,33 @@ namespace OnlineExam.Controllers
             Response.Cookies.Delete("Id");
             Response.Cookies.Delete("UserName");
             Response.Cookies.Delete("Password");
-            Response.Cookies.Delete("AdminType");
-            Response.Cookies.Delete("LoginType");
+            //Response.Cookies.Delete("AdminType");
+            //Response.Cookies.Delete("LoginType");
             Response.Cookies.Delete("teacherfullName");
             
 
             return RedirectToAction("TeacherLogin", "Home");
         }
+
+
+        public IActionResult StudentLogOut()
+        {
+            //Session.Remove("loggedinUser");
+            //var cookie = ControllerContext.HttpContext.Request.Cookies["userid"];
+            //cookie.Expires = DateTime.Now.AddDays(-1);
+            //Response.Cookies.Add(cookie);
+            HttpContext.Session.Clear();
+            CookieOptions option = new CookieOptions();
+            option.Expires = DateTime.Now.AddMinutes(-1);
+            Response.Cookies.Delete("StudentId");
+            Response.Cookies.Delete("StudentUserName");
+            Response.Cookies.Delete("StudentPassword");
+            //Response.Cookies.Delete("AdminType");
+            //Response.Cookies.Delete("LoginType");
+            Response.Cookies.Delete("StudentfullName");
+            return RedirectToAction("TeacherLogin", "Home");
+        }
+
 
 
 
