@@ -26,9 +26,10 @@
             <tbody id="question"></tbody>
 
         </table>
-        <button  onclick="readyAnswer()" value="Submit" />
+        <button class="btn btn-primary" style="width:4.5rem; height:2.5rem" onclick="readyAnswer()" value="Submit" >Submit</button>
     </form>
 </div>
+<div id="result"></div>
 <script>
     var c = 60;
     var allQuestion;
@@ -79,7 +80,7 @@ function loadQuetion() {
         $.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",
-            url: "https://localhost:44326/api/LoadQuestionForExam",
+            url: "https://localhost:5001/api/LoadQuestionForExam",
             dataType: "json",
             //dataType: "text",
             data: JSON.stringify(bodydata), 
@@ -119,7 +120,7 @@ function loadQuetion() {
 
                         </tr>
                         <tr>
-                        <td><input id="${data.model[i].fourthOption}" type="radio" name="${data.model[i].id}" class="rounded - bottom" value="${data.model[i].firstOption}" /> ${data.model[i].firstOption}</td>
+                        <td><input id="${data.model[i].fourthOption}" type="radio" name="${data.model[i].id}" class="rounded - bottom" value="${data.model[i].fourthOption}" /> ${data.model[i].fourthOption}</td>
 
                         </tr>
                       
@@ -135,7 +136,24 @@ function loadQuetion() {
         });
 
 }
+    //function readyAnswer() {
+    //    document.getElementById("result").innerHTML = "";
+        
+    //    var ele = document.getElementsByTagName('input');
 
+    //    for (i = 0; i < ele.length; i++) {
+
+    //        if (ele[i].type = "radio") {
+
+    //            if (ele[i].checked)
+    //                document.getElementById("result").innerHTML
+    //                    += ele[i].name + " Value: "
+    //                    + ele[i].value + "<br>";
+
+    //        }
+    //    }
+    //    console.log(result)
+    //}
           function readyAnswer() {
 
                 var arr = [];
@@ -143,6 +161,7 @@ function loadQuetion() {
                  for (var i = 0; i < len; i++) {
                 arr.push({
                     Id: allQuestion[i].id,
+
                     sortable: true,
                     resizeable: true
                 });
