@@ -97,7 +97,7 @@ namespace Infrastructure.Data
         }
 
 
-       public async Task<List<Questions>> LoadQuestionForExam(QuestionRequest question)
+       public async Task<List<LoadQuestionViewModel>> LoadQuestionForExam(QuestionRequest question)
         {
             //List<Questions> c = _sqlServerContext.Questions.Select(x => new Questions
             //{
@@ -124,7 +124,7 @@ namespace Infrastructure.Data
             var x = from t1 in _sqlServerContext.Questions
                     from t2 in _sqlServerContext.Exam.Where(x => t1.Name == x.QuestionName && Convert.ToInt32(t1.ClassId) == x.ClassId && x.Id==question.ExamId)
 
-                    select new Questions
+                    select new LoadQuestionViewModel
                     {
                         Id = t1.Id,
                         Name = t1.Name,
@@ -133,8 +133,9 @@ namespace Infrastructure.Data
                         ThirdOption = t1.ThirdOption,
                         FourthOption = t1.FourthOption,
                         Answer = t1.Answer,
-                        Title=t1.Title
-
+                        Title=t1.Title,
+                        StartTime=t2.StartTime,
+                        EndTime=t2.EndTime
 
                     };
             return x.ToList();

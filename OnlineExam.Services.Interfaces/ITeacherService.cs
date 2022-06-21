@@ -13,7 +13,7 @@ namespace OnlineExam.Services.Interfaces
         Task<IEnumerable<Class>> LoadAllClasses();
         Task<int> AssignTeacherToClass(AssignClass assignTeacher);
         Task<int> SaveExamFnfo(ExamInfo examInfo);
-        Task<List<Questions>> LoadQuestionForExam(QuestionRequest question);
+        Task<List<LoadQuestionViewModel>> LoadQuestionForExam(QuestionRequest question);
 
 
 

@@ -196,7 +196,7 @@ namespace OnlineExam.Controllers
 		[ProducesResponseType(500)]
 		public async Task<IActionResult> LoadQuestionForExam([FromBody] QuestionRequest question)
 		{
-			var response = new ListResponseModel<Questions>();
+			var response = new ListResponseModel<LoadQuestionViewModel>();
 
 			try
 			{

@@ -14,23 +14,25 @@
 </style>
 
 <div>
-    <label>Time: </label><span id="time001" style="font-size:inherit">60</span>
+    <p id="demo"></p>
+    @*<label>Time: </label><span id="time001" style="font-size:inherit">60</span>*@
 </div>
 <div> 
     <h3 id="qname"></h3>
     
     <form action="">
 
-
+       
         <table class="table">
             <tbody id="question"></tbody>
 
         </table>
         <button class="btn btn-primary" style="width:4.5rem; height:2.5rem" onclick="readyAnswer()" value="Submit" >Submit</button>
+        <button type="button" class="btn btn-primary" onclick="readyAnswer()">Primary</button>
     </form>
 </div>
 <div id="result"></div>
-<script>
+@*<script>
     var c = 60;
     var allQuestion;
     function timer001() {
@@ -54,7 +56,7 @@
         location.reload();
     }
 
-</script>
+</script>*@
 <script>
     $(document).ready(function (data) {
         
@@ -62,7 +64,7 @@
        
     });
     
-
+let endTime = '';
 function loadQuetion() {
 
     var classid = parseInt(getCookie('StudentClassId'));
@@ -80,7 +82,7 @@ function loadQuetion() {
         $.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",
-            url: "https://localhost:5001/api/LoadQuestionForExam",
+            url: "https://localhost:44326/api/LoadQuestionForExam",
             dataType: "json",
             //dataType: "text",
             data: JSON.stringify(bodydata), 
@@ -93,7 +95,8 @@ function loadQuetion() {
                 nextRequestAllow = true;
             },
             success: function (data) {
-                console.log(data)
+                console.log(data.model[0].endTime);
+                endTime = data.model[0].endTime;
                 allQuestion = data.model;
                 //$("#qname").val('Exam Name'+data.model[0].name);
                 $("h3").append(`Exam Name: ${data.model[0].name}`);
@@ -128,14 +131,41 @@ function loadQuetion() {
                     table.innerHTML += row
                 }
                 
-                
             }
-
 
 
         });
 
 }
+
+
+
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+  var countDownDate = new Date(endTime).getTime();
+  // Get today's date and time
+  var now = new Date().getTime();
+    
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+    
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+  // Output the result in an element with id="demo"
+  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+    
+  // If the count down is over, write some text 
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+  }
+}, 1000);
     //function readyAnswer() {
     //    document.getElementById("result").innerHTML = "";
         
@@ -159,8 +189,12 @@ function loadQuetion() {
                 var arr = [];
                 var len = allQuestion.length;
                  for (var i = 0; i < len; i++) {
+                     let redio = allQuestion[i].id;
+                     let ans=document.querySelector(`input[name="${redio}"]:checked`).value;
                 arr.push({
                     Id: allQuestion[i].id,
+                    Selected :ans,
+                    Answer : allQuestion[i].answer,
 
                     sortable: true,
                     resizeable: true

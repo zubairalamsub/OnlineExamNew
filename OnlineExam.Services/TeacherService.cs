@@ -45,7 +45,7 @@ namespace OnlineExam.Services
             return data;
         }
 
-        public async Task<List<Questions>> LoadQuestionForExam(QuestionRequest question)
+        public async Task<List<LoadQuestionViewModel>> LoadQuestionForExam(QuestionRequest question)
         {
             var data = await _teacherRepository.LoadQuestionForExam(question);
             return data;
