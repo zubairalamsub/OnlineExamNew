@@ -12,51 +12,35 @@
         border-top: none !important;
     }
 </style>
+<div class="main-body">
 
-<div>
-    <p id="demo"></p>
-    @*<label>Time: </label><span id="time001" style="font-size:inherit">60</span>*@
+    <div class="alert" id="alertdiv" style="display:none; text-align:center;border: 1px solid red;background-image: linear-gradient(to right, red, green, yellow, black); position:sticky; top:0;">
+        <button value="examrunning" style="font-size:17px; color:red; font-weight:bold">Exam Running on<br /><p id="demo"></p></button>
+        
+
+    </div>
+
+
+    @*<div>
+        <p id="demo"></p>
+        <label>Time: </label><span id="time001" style="font-size:inherit">60</span>
+    </div>*@
+    <div>
+        <h3 id="qname"></h3>
+
+        <form action="">
+
+
+            <table class="table">
+                <tbody id="question"></tbody>
+
+            </table>
+            <button class="btn btn-primary" style="width:4.5rem; height:2.5rem" onclick="readyAnswer()" value="Submit">Submit</button>
+            <button type="button" class="btn btn-primary" onclick="readyAnswer()">Primary</button>
+        </form>
+    </div>
+    <div id="result"></div>
 </div>
-<div> 
-    <h3 id="qname"></h3>
-    
-    <form action="">
-
-       
-        <table class="table">
-            <tbody id="question"></tbody>
-
-        </table>
-        <button class="btn btn-primary" style="width:4.5rem; height:2.5rem" onclick="readyAnswer()" value="Submit" >Submit</button>
-        <button type="button" class="btn btn-primary" onclick="readyAnswer()">Primary</button>
-    </form>
-</div>
-<div id="result"></div>
-@*<script>
-    var c = 60;
-    var allQuestion;
-    function timer001() {
-        c = c - 1;
-        if (c < 60) {
-            time001.innerHTML = c;
-        }
-
-        if (c < 1) {
-            window.clearInterval(update);
-            message001.innerHTML = "Time's up";
-            message002.innerHTML = "";
-            message003.innerHTML = "";
-            message004.innerHTML = "<button class=buttons002 onclick=repeat001()>Repeat</button>";
-        }
-    }
-
-    update = setInterval("timer001()", 1000);
-
-    function repeat001() {
-        location.reload();
-    }
-
-</script>*@
 <script>
     $(document).ready(function (data) {
         
@@ -82,7 +66,7 @@ function loadQuetion() {
         $.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",
-            url: "https://localhost:44326/api/LoadQuestionForExam",
+            url: "https://localhost:5001/api/LoadQuestionForExam",
             dataType: "json",
             //dataType: "text",
             data: JSON.stringify(bodydata), 
@@ -100,6 +84,7 @@ function loadQuetion() {
                 allQuestion = data.model;
                 //$("#qname").val('Exam Name'+data.model[0].name);
                 $("h3").append(`Exam Name: ${data.model[0].name}`);
+                $("#alertdiv").css("display", "block");
                 var table = document.getElementById('question')
 
 
@@ -157,7 +142,7 @@ var x = setInterval(function() {
   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
     
   // Output the result in an element with id="demo"
-  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+  document.getElementById("demo").innerHTML ="Time Left: "+ days + "d " + hours + "h "
   + minutes + "m " + seconds + "s ";
     
   // If the count down is over, write some text 
