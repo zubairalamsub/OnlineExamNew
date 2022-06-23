@@ -71,6 +71,22 @@ namespace Infrastructure.Data
             }
         }
 
+       public async Task<int> CheckExamAvailability(QuestionRequest question)
+        {
+
+            try
+            {
+                int check = _sqlServerContext.Exam.Where(x => x.ClassId == question.ClassId && x.Completed == false).Count();
+                return check;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
         public async Task<int>CreateExam(Exam exam)
         {
             await _sqlServerContext.Exam.AddAsync(exam);
