@@ -19,6 +19,9 @@
         
 
     </div>
+    <div class="alert" id="nextExam" style="display:none">
+        <p>Your upcomming exam</p>
+    </div>
 
 
     @*<div>
@@ -42,6 +45,43 @@
     <div id="result"></div>
 </div>
 <script>
+    $(document).ready(function () {
+
+        var classid = parseInt(getCookie('StudentClassId'));
+        const checkdata = {
+            
+            ClassId: classid,
+        }
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: "https://localhost:5001/api/CheckExamAvailability",
+            dataType: "json",
+            data: JSON.stringify(checkdata),
+            async: true,
+            beforeSend: function () {
+                nextRequestAllow = false;
+            },
+            complete: function () {
+                nextRequestAllow = true;
+            },
+            success: function (data) {
+                
+                if (data.model == 1) {
+                    $("#alertdiv").css("display", "block");
+                }
+                else {
+                    $("#nextExam").css("display", "block");
+                }
+            }
+
+
+        });
+
+    }
+    );
+
+
     $(document).ready(function (data) {
         
         loadQuetion();
@@ -82,9 +122,9 @@ function loadQuetion() {
                 console.log(data.model[0].endTime);
                 endTime = data.model[0].endTime;
                 allQuestion = data.model;
-                //$("#qname").val('Exam Name'+data.model[0].name);
-                $("h3").append(`Exam Name: ${data.model[0].name}`);
-                $("#alertdiv").css("display", "block");
+                $("#qname").val('Exam Name'+data.model[0].name);
+                //$("h3").append(`Exam Name: ${data.model[0].name}`);
+                //$("#alertdiv").css("display", "block");
                 var table = document.getElementById('question')
 
 
