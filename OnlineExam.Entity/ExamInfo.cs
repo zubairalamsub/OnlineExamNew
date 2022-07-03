@@ -10,7 +10,8 @@ namespace OnlineExam.Entity
 		public int ExamId { get; set; }
 		public int StudentId { get; set; }
 		public int Marks { get; set; }
-		public bool Comleted { get; set; }
+		public bool Completed { get; set; }
+        public int TotalMarkS{ get; set; }
 
-	}
+    }
 }

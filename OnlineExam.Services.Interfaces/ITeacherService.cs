@@ -14,11 +14,8 @@ namespace OnlineExam.Services.Interfaces
         Task<int> AssignTeacherToClass(AssignClass assignTeacher);
         Task<int> SaveExamFnfo(ExamInfo examInfo);
         Task<List<LoadQuestionViewModel>> LoadQuestionForExam(QuestionRequest question);
-        Task<int> CheckExamAvailability(QuestionRequest question);
-
-
-
-
+        Task<CheckExamViewModel> CheckExamAvailability(QuestionRequest question);
+        Task<ExamInfo> SubmitMarks(List<ExamInfoViewModel> examInfoViewModel);
 
     }
 }

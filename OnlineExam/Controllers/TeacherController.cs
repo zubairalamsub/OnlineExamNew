@@ -72,7 +72,7 @@ namespace OnlineExam.Controllers
 		[ProducesResponseType(500)]
 		public async Task<IActionResult> CheckExamAvailability([FromBody] QuestionRequest question)
 		{
-			var response = new SingleResponseModel<int>();
+			var response = new SingleResponseModel<CheckExamViewModel>();
 
 			try
 			{
@@ -242,6 +242,31 @@ namespace OnlineExam.Controllers
 
 			return response.ToHttpResponse();
 		}
+
+		[HttpPost]
+		[Route("api/SubmitMarks")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(201)]
+		[ProducesResponseType(400)]
+		[ProducesResponseType(500)]
+		public async Task<IActionResult> SubmitMarks([FromBody] List<ExamInfoViewModel> examInfoViewModel)
+		{
+			var response = new SingleResponseModel<ExamInfo>();
+
+			try
+			{
+				var data = await _techerService.SubmitMarks(examInfoViewModel);
+				response.Model = data;
+			}
+			catch (Exception exp)
+			{
+				response.DidError = true;
+				response.ErrorMessage = "There was an internal error, please contact to technical support.";
+			}
+
+			return response.ToHttpResponse();
+		}
+
 
 
 

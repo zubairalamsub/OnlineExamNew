@@ -4,6 +4,7 @@ using OnlineExam.Entity.ViewModel;
 using OnlineExam.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,7 +46,7 @@ namespace OnlineExam.Services
             return data;
         }
 
-        public async Task<int> CheckExamAvailability(QuestionRequest question)
+        public async Task<CheckExamViewModel> CheckExamAvailability(QuestionRequest question)
         {
 
             var data = await _teacherRepository.CheckExamAvailability(question);
@@ -60,7 +61,20 @@ namespace OnlineExam.Services
 
         }
 
+        public async Task<ExamInfo> SubmitMarks(List<ExamInfoViewModel> examInfoViewModel)
+        {
+            int TotalObtainedMarks = examInfoViewModel.Count(x => x.Answer == x.Selected);
+            int TotalMarks = examInfoViewModel.Count;
+            var data = examInfoViewModel.Select(x => new ExamInfo
+            {
+                ExamId = x.ExamId,
+                StudentId = x.StudentId,
+                Marks = TotalObtainedMarks,
+                TotalMarkS= TotalMarks
+            }).FirstOrDefault() ;
+            return await _teacherRepository.SaveExamInfo(data);
 
+        }
 
 
         //public async Task<int> AssignTeacherToClass(AssignClass assignTeacher)

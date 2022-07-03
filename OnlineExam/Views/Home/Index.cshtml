@@ -1,5 +1,6 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Exampage";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
 }
 
 @*<div class="text-center">
@@ -11,12 +12,24 @@
     .table td, .table th {
         border-top: none !important;
     }
+
+.pre  {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -15px;
+  margin-left: -15px;
+}
+    
 </style>
 <div class="main-body">
-
+    <div id="currentExam" style="display:none">
+    <p> You have an Exam Running</p>
+    <button class="btn alert-warning" onclick="loadQuetion()">Enter</button>
+    </div>
+   
     <div class="alert" id="alertdiv" style="display:none; text-align:center;border: 1px solid red;background-image: linear-gradient(to right, red, green, yellow, black); position:sticky; top:0;">
-        <button value="examrunning" style="font-size:17px; color:red; font-weight:bold">Exam Running on<br /><p id="demo"></p></button>
-        
+    <button value="examrunning" style="font-size:17px; color:red; font-weight:bold">Exam Running on<br /><p id="demo"></p></button>
 
     </div>
     <div class="alert" id="nextExam" style="display:none">
@@ -29,33 +42,57 @@
         <label>Time: </label><span id="time001" style="font-size:inherit">60</span>
     </div>*@
     <div>
-        <h3 id="qname"></h3>
+       @* <h3 id="qname"></h3>*@
+        <p id="qname"></p>
+    </div>
 
-        <form action="">
+    @* <div class="spinner-border text-warning" role="status">
+        <span class="visually-hidden">Loading...</span>
+     </div>*@
+<div class="pre" style="display:none">
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" enable-background="new 0 0 30 30" xml:space="preserve" width="30" height="30">
 
+		<rect fill="#FBBA44" width="15" height="15">
+      <animateTransform attributeName="transform" attributeType="XML" type="translate" dur="1.7s" values="0,0;15,0;15,15;0,15;0,0;" repeatCount="indefinite"/>
+		</rect>	
 
+		<rect x="15" fill="#E84150" width="15" height="15">
+      <animateTransform attributeName="transform" attributeType="XML" type="translate" dur="1.7s" values="0,0;0,15;-15,15;-15,0;0,0;" repeatCount="indefinite"/>
+		</rect>	
+      
+		<rect x="15" y="15" fill="#62B87B" width="15" height="15">
+      <animateTransform attributeName="transform" attributeType="XML" type="translate" dur="1.7s" values="0,0;-15,0;-15,-15;0,-15;0,0;" repeatCount="indefinite"/>
+		</rect>	
+
+		<rect y="15" fill="#2F6FB6" width="15" height="15">
+      <animateTransform attributeName="transform" attributeType="XML" type="translate" dur="1.7s" values="0,0;0,-15;15,-15;15,0;0,0;" repeatCount="indefinite"/>
+		</rect>
+    </svg>
+  </div>
             <table class="table">
                 <tbody id="question"></tbody>
 
             </table>
-            <button class="btn btn-primary" style="width:4.5rem; height:2.5rem" onclick="readyAnswer()" value="Submit">Submit</button>
-            <button type="button" class="btn btn-primary" onclick="readyAnswer()">Primary</button>
-        </form>
+            <button type="button" id="submitans" style="display:none" class="btn btn-primary" onclick="readyAnswer()">Submit Answer</button>
     </div>
     <div id="result"></div>
 </div>
 <script>
+    var ExId = 0;
+    var LocalUri="https://localhost:44326"
     $(document).ready(function () {
 
         var classid = parseInt(getCookie('StudentClassId'));
+        var stid = parseInt(getCookie('StudentId'));
         const checkdata = {
             
             ClassId: classid,
+            StudentId:stid
         }
         $.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",
-            url: "https://localhost:5001/api/CheckExamAvailability",
+            url: LocalUri+"/api/CheckExamAvailability",
             dataType: "json",
             data: JSON.stringify(checkdata),
             async: true,
@@ -66,9 +103,10 @@
                 nextRequestAllow = true;
             },
             success: function (data) {
+                ExId = data.model.examId;
                 
-                if (data.model == 1) {
-                    $("#alertdiv").css("display", "block");
+                if (data.model.count == 1) {
+                    $("#currentExam").css("display", "block");
                 }
                 else {
                     $("#nextExam").css("display", "block");
@@ -84,21 +122,23 @@
 
     $(document).ready(function (data) {
         
-        loadQuetion();
+        //loadQuetion();
        
     });
     
 let endTime = '';
 function loadQuetion() {
-
+     $(".pre").css("display", "block");
     var classid = parseInt(getCookie('StudentClassId'));
+    var stid = parseInt(getCookie('StudentId'));
 
     var upQuestion = '';
         const bodydata= {
-            ExamId: 1,
+            ExamId: ExId,
             ClassId:classid,
+            StudentId: stid
         }
-        //fetch('https://localhost:5001/api/LoadQuestionForExam', { method: 'POST', body: 'Hello' })
+        //fetch('https://localhost:5001/api/LoadQuestionForExam', {method: 'POST', body: 'Hello' })
         //    .then(results => results.json())
         //    .then(console.log);
             
@@ -106,7 +146,7 @@ function loadQuetion() {
         $.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",
-            url: "https://localhost:5001/api/LoadQuestionForExam",
+            url: "https://localhost:44326/api/LoadQuestionForExam",
             dataType: "json",
             //dataType: "text",
             data: JSON.stringify(bodydata), 
@@ -122,17 +162,24 @@ function loadQuetion() {
                 console.log(data.model[0].endTime);
                 endTime = data.model[0].endTime;
                 allQuestion = data.model;
-                $("#qname").val('Exam Name'+data.model[0].name);
+                $("#qname").append('Exam Name:' +allQuestion[0].name);
+                $(".pre").css("display", "none");
+                $("#alertdiv").css("display", "block");
+                $("#submitans").css("display", "block");
+                $("#currentExam").css("display", "none");
+                
+              
                 //$("h3").append(`Exam Name: ${data.model[0].name}`);
                 //$("#alertdiv").css("display", "block");
                 var table = document.getElementById('question')
+
 
 
               
                 for (var i = 0; i < data.model.length; i++) {
                     var row = `<tr>
                   
-							<td>${i+1}: ${data.model[i].title}</td>
+					 <td>${i+1}: ${data.model[i].title}</td>
 							
 					  </tr>
                       <tr">
@@ -210,22 +257,30 @@ var x = setInterval(function() {
     //    console.log(result)
     //}
           function readyAnswer() {
-
+                var StudentId = parseInt(getCookie('StudentId'));
                 var arr = [];
                 var len = allQuestion.length;
                  for (var i = 0; i < len; i++) {
                      let redio = allQuestion[i].id;
                      let ans=document.querySelector(`input[name="${redio}"]:checked`).value;
                 arr.push({
+                    ExamId:allQuestion[i].examId,
                     Id: allQuestion[i].id,
                     Selected :ans,
                     Answer : allQuestion[i].answer,
+                    StudentId:StudentId,
 
                     sortable: true,
                     resizeable: true
                 });
             }
-              console.log(arr);
+              //console.log(arr);
+            $.ajax({
+            type: 'POST',
+            contentType: "application/json",
+            data: JSON.stringify(arr),
+            url: "https://localhost:44326/api/SubmitMarks"                                   
+        });
 
             }
 

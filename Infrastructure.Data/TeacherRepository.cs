@@ -71,13 +71,21 @@ namespace Infrastructure.Data
             }
         }
 
-       public async Task<int> CheckExamAvailability(QuestionRequest question)
+       public async Task<CheckExamViewModel> CheckExamAvailability(QuestionRequest question)
         {
 
             try
             {
                 int check = _sqlServerContext.Exam.Where(x => x.ClassId == question.ClassId && x.Completed == false).Count();
-                return check;
+                int ExamId = _sqlServerContext.Exam.Where(x => x.ClassId == question.ClassId && x.Completed == false).Select(x => x.Id).FirstOrDefault();
+                int CheckInExamInfo = _sqlServerContext.ExamInfo.Where(x => x.ExamId == ExamId && x.StudentId == question.StudentId).Count();
+                
+                if(CheckInExamInfo > 0)
+                {
+                    check = 0;
+                    ExamId = 0;
+                }
+                return new CheckExamViewModel { ExamId = ExamId, Count = check };
             }
             catch (Exception ex)
             {
@@ -143,7 +151,7 @@ namespace Infrastructure.Data
                     select new LoadQuestionViewModel
                     {
                         Id = t1.Id,
-                        Name = t1.Name,
+                        Name = t2.QuestionName,
                         FirstOption = t1.FirstOption,
                         SceondOption = t1.SceondOption,
                         ThirdOption = t1.ThirdOption,
@@ -151,13 +159,21 @@ namespace Infrastructure.Data
                         Answer = t1.Answer,
                         Title=t1.Title,
                         StartTime=t2.StartTime,
-                        EndTime=t2.EndTime
-
+                        EndTime=t2.EndTime,
+                        ExamId=t2.Id
+          
                     };
             return x.ToList();
 
 
 
+        }
+        
+        public async Task<ExamInfo> SaveExamInfo(ExamInfo examInfo)
+        {
+            await _sqlServerContext.ExamInfo.AddAsync(examInfo);
+            await _sqlServerContext.SaveChangesAsync();
+            return examInfo;
         }
 
 

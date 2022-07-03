@@ -8,6 +8,7 @@ namespace OnlineExam.Entity
     {
         public int ExamId { get; set; }
         public int ClassId { get; set; }
+        public int StudentId { get; set; }
 
     }
 }

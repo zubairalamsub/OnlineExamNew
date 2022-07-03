@@ -6,8 +6,8 @@ namespace OnlineExam.Entity.ViewModel
 {
     public class LoadQuestionViewModel
     {
-
-		public int Id { get; set; }
+        public int ExamId { get; set; }
+        public int Id { get; set; }
 		public string Name { get; set; }
 		public string Title { get; set; }
 		public string FirstOption { get; set; }
