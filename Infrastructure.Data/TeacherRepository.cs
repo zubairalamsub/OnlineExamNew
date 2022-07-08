@@ -56,7 +56,22 @@ namespace Infrastructure.Data
 
         }
 
-       public async Task<int> SaveExamFnfo(ExamInfo examInfo)
+        public async Task<int> CreateNewExam(Exam exam)
+        {
+            try
+            {
+                await _sqlServerContext.Exam.AddAsync(exam);
+                return await _sqlServerContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+        public async Task<int> SaveExamFnfo(ExamInfo examInfo)
         {
 
             try

@@ -279,10 +279,13 @@ var x = setInterval(function() {
             type: 'POST',
             contentType: "application/json",
             data: JSON.stringify(arr),
-            url: "https://localhost:44326/api/SubmitMarks"                                   
+            url: "https://localhost:44326/api/SubmitMarks" ,
+            success: function (data) {
+                location.reload();
+            }
         });
 
-            }
+      }
 
     function getCookie(c_name) {
         if (document.cookie.length > 0) {

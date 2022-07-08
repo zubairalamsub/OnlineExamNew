@@ -12,6 +12,7 @@ namespace OnlineExam.Entity
 		public DateTime StartTime { get; set; }
 		public DateTime EndTime { get; set; }
 		public bool Completed { get; set; }
+        public string ExamName { get; set; }
 
-	}
+    }
 }

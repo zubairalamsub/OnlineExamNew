@@ -35,15 +35,48 @@ namespace OnlineExam.Controllers
         {
 			return View();
         }
+        public int GetTeacherIdFromSession()
+        {
+            return Convert.ToInt32(HttpContext.Session.GetString("Id"));
+        }
+        public int GetStudentIdFromSession()
+        {
+            return Convert.ToInt32(HttpContext.Session.GetString("StudentId"));
+        }
 
 
-		[HttpGet]
+        [HttpGet]
 		[Route("api/LoadAllClass")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(201)]
 		[ProducesResponseType(400)]
 		[ProducesResponseType(500)]
 		public async Task<IActionResult> loadAllClass()
+		{
+			var response = new ListResponseModel<Class>();
+
+			try
+			{
+
+				var data = await _techerService.LoadAllClasses();
+				response.Model = data;
+			}
+			catch (Exception exp)
+			{
+				response.DidError = true;
+				response.ErrorMessage = "There was an internal error, please contact to technical support.";
+			}
+
+			return response.ToHttpResponse();
+		}
+
+		[HttpGet]
+		[Route("api/LoadAllQuestionName")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(201)]
+		[ProducesResponseType(400)]
+		[ProducesResponseType(500)]
+		public async Task<IActionResult> LoadAllQuestionName()
 		{
 			var response = new ListResponseModel<Class>();
 
@@ -207,19 +240,45 @@ namespace OnlineExam.Controllers
 		}
 
 
-		public IActionResult Exam()
-        {
+		//public IActionResult Exam()
+		//      {
 
-			return View();
-        }
-
-
-
-
-
-
+		//	return View();
+		//      }
 
 		[HttpPost]
+		[Route("api/CreateNewExam")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(201)]
+		[ProducesResponseType(400)]
+		[ProducesResponseType(500)]
+		public async Task<IActionResult> CreateNewExam([FromBody] Exam exam)
+		{
+			var response = new SingleResponseModel<int>();
+
+			try
+			{
+
+				var data = await _techerService.CreateNewExam(exam);
+				response.Model = data;
+			}
+			catch (Exception exp)
+			{
+				response.DidError = true;
+				response.ErrorMessage = "There was an internal error, please contact to technical support.";
+			}
+
+			return response.ToHttpResponse();
+		}
+
+
+
+		public IActionResult CreateExam()
+        {
+            return View();
+        }
+
+        [HttpPost]
 		[Route("api/LoadQuestionForExam")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(201)]
