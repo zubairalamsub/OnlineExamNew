@@ -197,7 +197,9 @@ namespace Infrastructure.Data
                     {
                         StudentId = t1.Id,
                         StudentName = t2.Name,
-                        Marks = t1.Marks
+                        Marks = t1.Marks,
+                        TotalMarks = t1.TotalMarkS
+
                     };
             return x.ToList();
 

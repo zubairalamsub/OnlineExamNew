@@ -10,6 +10,8 @@ namespace OnlineExam.Entity.ViewModel
         public int StudentId { get; set; }
         public string StudentName { get; set; }
         public int Marks { get; set; }
-        
+        public int TotalMarks { get; set; }
+
+
     }
 }

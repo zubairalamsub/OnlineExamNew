@@ -65,9 +65,9 @@
             }
             $http.post(Url + 'LoadAllmarks/', assignModel, { headers: { 'Content-Type': 'application/json' } })
                 .then(response => {
-                    console.log(response.data);
+                    //console.log(response.data);
                     $scope.marks = response.data.model;
-                  alert("Assign Successfull")
+                  //alert("Assign Successfull")
                   
                 }, error = (response) => {
                     console.log(response);
@@ -101,12 +101,15 @@
      <th>Student Id</th>
      <th>Student Name</th>
      <th> Marks </th>
+     <th> Total Marks </th>
     </tr></thead>
    <tbody>
      <tr ng-repeat="m in marks">
        <td> {{ m.studentId }}</td>
        <td> {{ m.studentName }} </td>
        <td> {{ m.marks }} </td>
+       <td> {{ m.totalMarks }} </td>
+       
      </tr>
    </tbody>
  </table>
