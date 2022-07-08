@@ -302,6 +302,31 @@ namespace OnlineExam.Controllers
 			return response.ToHttpResponse();
 		}
 
+
+		[HttpPost]
+		[Route("api/LoadAllmarks")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(201)]
+		[ProducesResponseType(400)]
+		[ProducesResponseType(500)]
+		public async Task<IActionResult> LoadAllmarks([FromBody] LoadMarksViewModel marks)
+		{
+			var response = new ListResponseModel<MarksViewModel>();
+
+			try
+			{
+				var data = await _techerService.LoadAllmarks(marks);
+				response.Model = data;
+			}
+			catch (Exception exp)
+			{
+				response.DidError = true;
+				response.ErrorMessage = "There was an internal error, please contact to technical support.";
+			}
+
+			return response.ToHttpResponse();
+		}
+
 		[HttpPost]
 		[Route("api/SubmitMarks")]
 		[ProducesResponseType(200)]
@@ -315,6 +340,41 @@ namespace OnlineExam.Controllers
 			try
 			{
 				var data = await _techerService.SubmitMarks(examInfoViewModel);
+				response.Model = data;
+			}
+			catch (Exception exp)
+			{
+				response.DidError = true;
+				response.ErrorMessage = "There was an internal error, please contact to technical support.";
+			}
+
+			return response.ToHttpResponse();
+		}
+
+
+		public IActionResult ShowMarksClassWise()
+
+
+        {
+            return View();
+        }
+
+
+
+		[HttpGet]
+		[Route("api/LoadAllExam")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(201)]
+		[ProducesResponseType(400)]
+		[ProducesResponseType(500)]
+		public async Task<IActionResult> LoadAllExam()
+		{
+			var response = new ListResponseModel<Exam>();
+
+			try
+			{
+
+				var data = await _techerService.LoadAllExam();
 				response.Model = data;
 			}
 			catch (Exception exp)

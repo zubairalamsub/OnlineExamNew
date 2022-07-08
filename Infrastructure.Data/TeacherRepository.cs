@@ -134,30 +134,31 @@ namespace Infrastructure.Data
                 throw ex;
             }
         }
+        public async Task<IEnumerable<Exam>> LoadAllExam()
+        {
+            try
+            {
+                IEnumerable<Exam> e = _sqlServerContext.Exam.Select(x => new Exam
+                {
+                    Id = x.Id,
+                    ClassId = x.ClassId,
+                    Completed = x.Completed,
+                    QuestionName = x.QuestionName,
+                    StartTime = x.StartTime
+                }).ToList();
+                return e;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
 
 
        public async Task<List<LoadQuestionViewModel>> LoadQuestionForExam(QuestionRequest question)
         {
-            //List<Questions> c = _sqlServerContext.Questions.Select(x => new Questions
-            //{
-            //    Id=x.Id,
-            //    Name=x.Name,
-            //    FirstOption=x.FirstOption,
-            //    SceondOption=x.SceondOption,
-            //    ThirdOption=x.ThirdOption,
-            //    FourthOption=x.FourthOption,
-            //    Answer=x.Answer,
-            //    ClassId=x.ClassId,
-
-
-            //}).ToList();
-            //return c;
-
-
-            //var studentInfo = from q in _sqlServerContext.Questions
-            //                  join e in _sqlServerContext.Exam
-            //                  on q.Name equals e.QuestionName  && q.ClassId equals question.ClassId
-            //                  select new { student.student_name, student.student_city, course.course_name, course.course_desc };
+           
 
 
             var x = from t1 in _sqlServerContext.Questions
@@ -183,7 +184,27 @@ namespace Infrastructure.Data
 
 
         }
-        
+
+        public async Task<List<MarksViewModel>> LoadAllmarks(LoadMarksViewModel marksViewModel)
+        {
+
+
+
+            var x = from t1 in _sqlServerContext.ExamInfo
+                    from t2 in _sqlServerContext.Students.Where(x => t1.StudentId == x.Id && t1.ExamId == marksViewModel.ExamId)
+
+                    select new MarksViewModel
+                    {
+                        StudentId = t1.Id,
+                        StudentName = t2.Name,
+                        Marks = t1.Marks
+                    };
+            return x.ToList();
+
+
+
+        }
+
         public async Task<ExamInfo> SaveExamInfo(ExamInfo examInfo)
         {
             await _sqlServerContext.ExamInfo.AddAsync(examInfo);

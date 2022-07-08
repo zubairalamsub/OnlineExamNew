@@ -32,13 +32,14 @@ namespace OnlineExam.Services
             var data=await _teacherRepository.LoadAllClasses();
             return data;
         }
-        //public async Task<IEnumerable<Class>> LoadAllClasses()
-        //{
-        //    var data=await _teacherRepository.LoadAllClasses();
-        //    return data;
-        //}
+        public async Task<IEnumerable<Exam>> LoadAllExam()
+        {
+            var data = await _teacherRepository.LoadAllExam();
+            return data;
+        }
+     
 
-       public async Task<int> AssignTeacherToClass(AssignClass assignTeacher)
+        public async Task<int> AssignTeacherToClass(AssignClass assignTeacher)
         {
             var data = await _teacherRepository.AssignTeacherToClass(assignTeacher);
             return data;
@@ -72,7 +73,13 @@ namespace OnlineExam.Services
 
 
         }
+        public async Task<List<MarksViewModel>> LoadAllmarks(LoadMarksViewModel loadMarks)
+        {
+            var data = await _teacherRepository.LoadAllmarks(loadMarks);
+            return data;
 
+
+        }
         public async Task<ExamInfo> SubmitMarks(List<ExamInfoViewModel> examInfoViewModel)
         {
             int TotalObtainedMarks = examInfoViewModel.Count(x => x.Answer == x.Selected);

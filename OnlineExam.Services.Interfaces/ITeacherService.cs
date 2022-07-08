@@ -17,6 +17,9 @@ namespace OnlineExam.Services.Interfaces
         Task<CheckExamViewModel> CheckExamAvailability(QuestionRequest question);
         Task<ExamInfo> SubmitMarks(List<ExamInfoViewModel> examInfoViewModel);
         Task<int> CreateNewExam(Exam exam);
+        Task<IEnumerable<Exam>> LoadAllExam();
+        Task<List<MarksViewModel>> LoadAllmarks(LoadMarksViewModel loadMarks);
+
 
     }
 }

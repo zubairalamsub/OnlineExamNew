@@ -16,6 +16,10 @@ namespace OnlineExam.Entity.Interfaces
        Task<CheckExamViewModel> CheckExamAvailability(QuestionRequest question);
        Task<ExamInfo> SaveExamInfo(ExamInfo examInfo);
        Task<int> CreateNewExam(Exam exam);
+       Task<IEnumerable<Exam>> LoadAllExam();
+       Task<List<MarksViewModel>> LoadAllmarks(LoadMarksViewModel loadMarks);
+
+
 
     }
 }
