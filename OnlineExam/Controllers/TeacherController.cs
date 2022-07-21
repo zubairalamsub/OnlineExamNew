@@ -28,16 +28,44 @@ namespace OnlineExam.Controllers
 
         public IActionResult UploadQuestion()
         {
-            return View();
+			int teacherId = GetTeacherIdFromCookie();
+			if (teacherId > 0)
+			{
+				return View();
+			}
+			else
+			{
+				return RedirectToAction("TeacherLogin", "Home");
+			}
 
-        }
+		}
 	    public IActionResult CreateStudentId()
         {
-			return View();
+			int teacherId = GetTeacherIdFromCookie();
+			if (teacherId > 0)
+            {
+				return View();
+            }
+			else
+            {
+				return RedirectToAction("TeacherLogin", "Home");
+            }
+
+		
         }
-        public int GetTeacherIdFromSession()
+        public int GetTeacherIdFromCookie()
         {
-            return Convert.ToInt32(HttpContext.Session.GetString("Id"));
+			try
+			{
+				var userid = Convert.ToInt32(ControllerContext.HttpContext.Request.Cookies["Id"]);
+				return userid;
+			}
+			catch (Exception ex)
+
+			{
+
+				throw ex;
+			}
         }
         public int GetStudentIdFromSession()
         {
@@ -143,7 +171,6 @@ namespace OnlineExam.Controllers
 						Sheet1.Add(new Questions
 						{
 							Name = worksheet.Cells[row, 1].Value.ToString().Trim(),
-
 							Title = worksheet.Cells[row, 2].Value.ToString().Trim(),
 							FirstOption = worksheet.Cells[row, 3].Value.ToString().Trim(),
 							SceondOption = worksheet.Cells[row,4].Value.ToString().Trim(),
@@ -166,7 +193,16 @@ namespace OnlineExam.Controllers
 
 		public IActionResult AssignClassToteacher()
 		{
-			return View();
+			int teacherId = GetTeacherIdFromCookie();
+			if (teacherId > 0)
+			{
+				return View();
+			}
+			else
+			{
+				return RedirectToAction("TeacherLogin", "Home");
+			}
+
 
 		}
 
@@ -275,10 +311,19 @@ namespace OnlineExam.Controllers
 
 		public IActionResult CreateExam()
         {
-            return View();
-        }
+			int teacherId = GetTeacherIdFromCookie();
+			if (teacherId > 0)
+			{
+				return View();
+			}
+			else
+			{
+				return RedirectToAction("TeacherLogin", "Home");
+			}
 
-        [HttpPost]
+		}
+
+		[HttpPost]
 		[Route("api/LoadQuestionForExam")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(201)]

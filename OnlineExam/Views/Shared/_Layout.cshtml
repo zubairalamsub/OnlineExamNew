@@ -31,10 +31,18 @@
                          <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Teacher" asp-action="CreateStudentId">Add New Student</a>
                         </li>
+                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Teacher" asp-action="CreateExam">Create New Exam</a>
+                        </li>
+                          <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Teacher" asp-action="ShowMarksClassWise"> Show Result</a>
+                        </li>
 
+                        
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
+                        
                     </ul>
                      <span class="pull-right" style=" padding-top: 15px; color: black;">Welcome, <span id="teacherfullName"></span> [ <a href="@Url.Action("LogOut", "Account")" class="btn-link" style="color: red;">Log Out</a> ]</span>
                 </div>
