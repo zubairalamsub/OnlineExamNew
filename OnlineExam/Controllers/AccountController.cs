@@ -94,7 +94,7 @@ namespace OnlineExam.Controllers
 
 
         [HttpPost]
-        [Route("Account/TeacherRegister")]
+        [Route("api/TeacherRegister")]
         [ProducesResponseType(200)]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
