@@ -26,7 +26,19 @@ namespace OnlineExam.Controllers
         {
             return View();
         }
+        public IActionResult Exam()
+        {
+            int teacherId = GetStudentIdFromCookie();
+            if (teacherId > 0)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("StudentLogin", "Home");
+            }
 
+        }
         public IActionResult Privacy()
         {
             return View();
@@ -41,6 +53,21 @@ namespace OnlineExam.Controllers
         {
 
             return View();
+        }
+
+        public int GetStudentIdFromCookie()
+        {
+            try
+            {
+                var userid = Convert.ToInt32(ControllerContext.HttpContext.Request.Cookies["StudentId"]);
+                return userid;
+            }
+            catch (Exception ex)
+
+            {
+
+                throw ex;
+            }
         }
 
 
