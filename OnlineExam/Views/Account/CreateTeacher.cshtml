@@ -65,8 +65,9 @@
                     console.log(response.data);
                     $scope.IdText =  response.data.model.id;
                     $scope.showinput = true;
+					let username=response.data.model.userName
                   
-                  alert("Successfully Added")
+                  alert(username+"  Successfully Added")
                   
                 }, error = (response) => {
                     console.log(response);
@@ -219,7 +220,7 @@ body {
 						<i class="fa fa-lock"></i>
 					</span>                    
 				</div>
-				<input type="text" class="form-control" name="Password" placeholder="Password" required="required" ng-model="password">
+				<input type="password" class="form-control" name="Password" placeholder="Password" required="required" ng-model="password">
 			</div>
         </div>
 	@*	<div class="form-group">
