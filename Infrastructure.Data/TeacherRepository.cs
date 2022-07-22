@@ -60,8 +60,17 @@ namespace Infrastructure.Data
         {
             try
             {
-                await _sqlServerContext.Exam.AddAsync(exam);
-                return await _sqlServerContext.SaveChangesAsync();
+                int examCount = _sqlServerContext.Exam.Where(x => x.EndTime > exam.StartTime && x.ClassId == exam.ClassId).Count();
+                if (examCount > 0)
+                {
+                    return 0;
+                }
+                else
+                {
+                    await _sqlServerContext.Exam.AddAsync(exam);
+                    return await _sqlServerContext.SaveChangesAsync();
+                }
+             
             }
             catch (Exception ex)
             {
@@ -92,7 +101,7 @@ namespace Infrastructure.Data
             try
             {
                 int check = _sqlServerContext.Exam.Where(x => x.ClassId == question.ClassId && x.Completed == false).Count();
-                int ExamId = _sqlServerContext.Exam.Where(x => x.ClassId == question.ClassId && x.Completed == false).Select(x => x.Id).FirstOrDefault();
+                int ExamId = _sqlServerContext.Exam.Where(x => x.ClassId == question.ClassId && x.Completed == false).OrderByDescending(x=>x.Id).Select(x => x.Id).FirstOrDefault();
                 int CheckInExamInfo = _sqlServerContext.ExamInfo.Where(x => x.ExamId == ExamId && x.StudentId == question.StudentId).Count();
                 
                 if(CheckInExamInfo > 0)

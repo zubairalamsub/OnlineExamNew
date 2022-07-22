@@ -57,8 +57,13 @@
             $http.post(Url + 'CreateNewExam/', assignModel, { headers: { 'Content-Type': 'application/json' } })
                 .then(response => {
                     console.log(response.data);
-                   
-                  alert("Assign Successfull")
+                    if (response.data.model == 1) {
+
+                        alert("Created Successfully")
+                    }
+                    else {
+                        alert("This class allready have exam in this time period")
+                    }
                   
                 }, error = (response) => {
                     console.log(response);
