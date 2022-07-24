@@ -188,7 +188,7 @@ namespace OnlineExam.Controllers
 			
 			var first = await  _techerService.UploadQuestion(Sheet1);
 		
-			return result;
+			return first;
 		}
 
 		public IActionResult AssignClassToteacher()
