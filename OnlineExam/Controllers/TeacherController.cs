@@ -187,9 +187,18 @@ namespace OnlineExam.Controllers
 		
 			
 			var first = await  _techerService.UploadQuestion(Sheet1);
-		
-			return first;
+            if (first > 0)
+            {
+                RedirectToAction("SuccessMessgeQup", "Teacher");
+            }
+      
+            return first;
 		}
+
+        public IActionResult SuccessMessgeQup()
+        {
+			return View();
+        }
 
 		public IActionResult AssignClassToteacher()
 		{
