@@ -152,7 +152,7 @@ namespace OnlineExam.Controllers
 
 
 
-		public async Task<int> UploadExcel(IFormFile file)
+		public async Task<IActionResult> UploadExcel(IFormFile file)
 		{
 			var Sheet1 = new List<Questions>();
 		
@@ -189,11 +189,11 @@ namespace OnlineExam.Controllers
 			var first = await  _techerService.UploadQuestion(Sheet1);
             if (first > 0)
             {
-                RedirectToAction("SuccessMessgeQup", "Teacher");
+				return View("SuccessMessgeQup");
             }
-      
-            return first;
-		}
+
+            return View("ErrorMessage");
+        }
 
         public IActionResult SuccessMessgeQup()
         {
