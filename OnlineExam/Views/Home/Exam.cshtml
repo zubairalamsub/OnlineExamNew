@@ -127,6 +127,7 @@
     });
     
 let endTime = '';
+let startTime = '';
 function loadQuetion() {
      $(".pre").css("display", "block");
     var classid = parseInt(getCookie('StudentClassId'));
@@ -162,6 +163,15 @@ function loadQuetion() {
                 console.log(data.model[0].endTime);
                 endTime = data.model[0].endTime;
                 allQuestion = data.model;
+                startTime = data.model[0].startTime;
+                 var strdate = new Date(endTime).getTime();
+                  // Get today's date and time
+                 var now = new Date().getTime();
+                if (strdate > now) {
+                    alert("Exam Will Start Soon");
+                    location.reload();
+                    
+                }
                 $("#qname").append('Exam Name:' +allQuestion[0].name);
                 $(".pre").css("display", "none");
                 $("#alertdiv").css("display", "block");
@@ -235,9 +245,9 @@ var x = setInterval(function() {
   // If the count down is over, write some text 
   if (distance < 0) {
     clearInterval(x);
+    readyAnswer();
     document.getElementById("demo").innerHTML = "EXPIRED";
-      readyAnswer();
-      location.reload();
+    location.reload();
 
   }
 }, 1000);
