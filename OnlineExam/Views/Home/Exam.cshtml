@@ -167,7 +167,7 @@ function loadQuetion() {
                  var strdate = new Date(endTime).getTime();
                   // Get today's date and time
                  var now = new Date().getTime();
-                if (strdate > now) {
+                if (strdate < now) {
                     alert("Exam Will Start Soon");
                     location.reload();
                     
@@ -247,6 +247,8 @@ var x = setInterval(function() {
     clearInterval(x);
     readyAnswer();
     document.getElementById("demo").innerHTML = "EXPIRED";
+      alert("Exam has completed");
+    document.getElementById("demo").innerHTML = "";
     location.reload();
 
   }
@@ -272,10 +274,17 @@ var x = setInterval(function() {
           function readyAnswer() {
                 var StudentId = parseInt(getCookie('StudentId'));
                 var arr = [];
+              let ans = '';
                 var len = allQuestion.length;
                  for (var i = 0; i < len; i++) {
                      let redio = allQuestion[i].id;
-                     let ans=document.querySelector(`input[name="${redio}"]:checked`).value;
+                     if (document.querySelector(`input[name="${redio}"]:checked`)!=null) {
+                         ans = document.querySelector(`input[name="${redio}"]:checked`).value;
+                     }
+                     else {
+
+                         ans = '';
+                     }
                 arr.push({
                     ExamId:allQuestion[i].examId,
                     Id: allQuestion[i].id,
