@@ -172,6 +172,11 @@ function loadQuetion() {
                     location.reload();
                     
                 }
+                if(endTime<now)
+                {
+                    alert("Exam is Over");
+                    window.location.href = "https://localhost:44326/Student/";
+                }
                 $("#qname").append('Exam Name:' +allQuestion[0].name);
                 $(".pre").css("display", "none");
                 $("#alertdiv").css("display", "block");
