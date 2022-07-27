@@ -103,7 +103,7 @@ namespace Infrastructure.Data
 
                 var currentDateTime = DateTime.Now;
                 int check = _sqlServerContext.Exam.Where(x => x.ClassId == question.ClassId && x.Completed == false).Count();
-                int ExamId = _sqlServerContext.Exam.Where(x => x.ClassId == question.ClassId && x.Completed == false && x.EndTime>currentDateTime).OrderByDescending(x=>x.Id).Select(x => x.Id).FirstOrDefault();
+                int ExamId = _sqlServerContext.Exam.Where(x => x.ClassId == question.ClassId && x.Completed == false && x.EndTime>currentDateTime && x.StartTime<=currentDateTime).OrderByDescending(x=>x.Id).Select(x => x.Id).FirstOrDefault();
                 int CheckInExamInfo = _sqlServerContext.ExamInfo.Where(x => x.ExamId == ExamId && x.StudentId == question.StudentId).Count();
                 
                 if(CheckInExamInfo > 0)
