@@ -19,6 +19,7 @@ namespace OnlineExam.Entity.Interfaces
        Task<IEnumerable<Exam>> LoadAllExam();
        Task<List<MarksViewModel>> LoadAllmarks(LoadMarksViewModel loadMarks);
        Task<List<ShowResultViewModel>> LoadAllExamResult(int studentId);
+       Task<int> CreateNewClass(ClassInfo classInfo);
 
 
 

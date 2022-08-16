@@ -45,6 +45,13 @@ namespace OnlineExam.Services
             return data;
 
         }
+
+        public async Task<int> CreateNewClass(ClassInfo classInfo)
+        {
+            var data = await _teacherRepository.CreateNewClass(classInfo);
+            return data;
+
+        }
         public async Task<int> CreateNewExam(Exam exam)
         {
             var data = await _teacherRepository.CreateNewExam(exam);
@@ -100,6 +107,8 @@ namespace OnlineExam.Services
             return await _teacherRepository.SaveExamInfo(data);
 
         }
+
+        
 
 
         //public async Task<int> AssignTeacherToClass(AssignClass assignTeacher)

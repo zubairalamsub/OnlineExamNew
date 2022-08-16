@@ -346,6 +346,19 @@ namespace OnlineExam.Controllers
 			}
 
 		}
+		public IActionResult CreateClass()
+		{
+			int teacherId = GetTeacherIdFromCookie();
+			if (teacherId > 0)
+			{
+				return View();
+			}
+			else
+			{
+				return RedirectToAction("TeacherLogin", "Home");
+			}
+
+		}
 
 		[HttpPost]
 		[Route("api/LoadQuestionForExam")]
@@ -475,6 +488,32 @@ namespace OnlineExam.Controllers
 			try
 			{
 				var data = await _techerService.LoadAllExamResult(student);
+				response.Model = data;
+			}
+			catch (Exception exp)
+			{
+				response.DidError = true;
+				response.ErrorMessage = "There was an internal error, please contact to technical support.";
+			}
+
+			return response.ToHttpResponse();
+		}
+
+
+		[HttpPost]
+		[Route("api/CreateNewClass")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(201)]
+		[ProducesResponseType(400)]
+		[ProducesResponseType(500)]
+		public async Task<IActionResult> CreateNewClass([FromBody] ClassInfo classInfo)
+		{
+			var response = new SingleResponseModel<int>();
+
+			try
+			{
+
+				var data = await _techerService.CreateNewClass(classInfo);
 				response.Model = data;
 			}
 			catch (Exception exp)

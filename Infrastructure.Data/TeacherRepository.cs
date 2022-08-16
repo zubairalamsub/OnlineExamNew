@@ -235,6 +235,22 @@ namespace Infrastructure.Data
 
         }
 
+       public async Task<int> CreateNewClass(ClassInfo classInfo)
+        {
+            try
+            {
+                await _sqlServerContext.ClassInfo.AddRangeAsync(classInfo);
+                int res = await _sqlServerContext.SaveChangesAsync();
+                return res;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+              //  throw ex;
+            }
+
+        }
+
         public async Task<ExamInfo> SaveExamInfo(ExamInfo examInfo)
         {
             await _sqlServerContext.ExamInfo.AddAsync(examInfo);
