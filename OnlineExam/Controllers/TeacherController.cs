@@ -67,7 +67,22 @@ namespace OnlineExam.Controllers
 				throw ex;
 			}
         }
-        public int GetStudentIdFromSession()
+
+		public int GetStudentIdFromCookie()
+		{
+			try
+			{
+				var userid = Convert.ToInt32(ControllerContext.HttpContext.Request.Cookies["StudentId"]);
+				return userid;
+			}
+			catch (Exception ex)
+
+			{
+
+				throw ex;
+			}
+		}
+		public int GetStudentIdFromSession()
         {
             return Convert.ToInt32(HttpContext.Session.GetString("StudentId"));
         }
@@ -429,6 +444,37 @@ namespace OnlineExam.Controllers
 			{
 
 				var data = await _techerService.LoadAllExam();
+				response.Model = data;
+			}
+			catch (Exception exp)
+			{
+				response.DidError = true;
+				response.ErrorMessage = "There was an internal error, please contact to technical support.";
+			}
+
+			return response.ToHttpResponse();
+		}
+
+		public IActionResult ShowExamResults()
+
+		{
+			return View();
+		}
+
+
+		[HttpGet]
+		[Route("api/LoadAllExamResult")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(201)]
+		[ProducesResponseType(400)]
+		[ProducesResponseType(500)]
+		public async Task<IActionResult> LoadAllExamResult()
+		{
+			var response = new ListResponseModel<ShowResultViewModel>();
+			var student = GetStudentIdFromCookie();
+			try
+			{
+				var data = await _techerService.LoadAllExamResult(student);
 				response.Model = data;
 			}
 			catch (Exception exp)

@@ -218,6 +218,23 @@ namespace Infrastructure.Data
 
         }
 
+       public async Task<List<ShowResultViewModel>> LoadAllExamResult(int studentId)
+        {
+            var x = from t1 in _sqlServerContext.ExamInfo
+                    join t2 in _sqlServerContext.Students on t1.StudentId equals t2.Id
+                    join t3 in _sqlServerContext.Exam on t1.ExamId equals t3.Id
+
+                    select new ShowResultViewModel
+                    {
+                        QuestionName =t3.QuestionName,
+                        Marks = t1.Marks,
+                        TotalMarks = t1.TotalMarkS
+
+                    };
+            return x.ToList();
+
+        }
+
         public async Task<ExamInfo> SaveExamInfo(ExamInfo examInfo)
         {
             await _sqlServerContext.ExamInfo.AddAsync(examInfo);

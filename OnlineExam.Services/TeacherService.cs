@@ -80,6 +80,12 @@ namespace OnlineExam.Services
 
 
         }
+
+        public async Task<List<ShowResultViewModel>> LoadAllExamResult(int studentId)
+        {
+            var data = await _teacherRepository.LoadAllExamResult(studentId);
+            return data;
+        }
         public async Task<ExamInfo> SubmitMarks(List<ExamInfoViewModel> examInfoViewModel)
         {
             int TotalObtainedMarks = examInfoViewModel.Count(x => x.Answer == x.Selected);
