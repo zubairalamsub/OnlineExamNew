@@ -452,11 +452,11 @@ namespace OnlineExam.Controllers
 		public async Task<IActionResult> LoadAllExam()
 		{
 			var response = new ListResponseModel<Exam>();
-
+			var teacherId = GetTeacherIdFromCookie();
 			try
 			{
 
-				var data = await _techerService.LoadAllExam();
+				var data = await _techerService.LoadAllExam(teacherId);
 				response.Model = data;
 			}
 			catch (Exception exp)

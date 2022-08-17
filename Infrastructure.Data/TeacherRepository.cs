@@ -145,11 +145,13 @@ namespace Infrastructure.Data
                 throw ex;
             }
         }
-        public async Task<IEnumerable<Exam>> LoadAllExam()
+        public async Task<IEnumerable<Exam>> LoadAllExam(int teacherId)
         {
+          
+
             try
             {
-                IEnumerable<Exam> e = _sqlServerContext.Exam.Select(x => new Exam
+                IEnumerable<Exam> e = _sqlServerContext.Exam.Where(x=>x.TeacherId==teacherId).Select(x => new Exam
                 {
                     Id = x.Id,
                     ClassId = x.ClassId,

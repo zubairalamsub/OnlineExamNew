@@ -32,9 +32,9 @@ namespace OnlineExam.Services
             var data=await _teacherRepository.LoadAllClasses();
             return data;
         }
-        public async Task<IEnumerable<Exam>> LoadAllExam()
+        public async Task<IEnumerable<Exam>> LoadAllExam(int teacherId)
         {
-            var data = await _teacherRepository.LoadAllExam();
+            var data = await _teacherRepository.LoadAllExam(teacherId);
             return data;
         }
      
