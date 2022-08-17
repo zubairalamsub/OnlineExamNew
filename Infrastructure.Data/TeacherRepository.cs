@@ -221,7 +221,7 @@ namespace Infrastructure.Data
        public async Task<List<ShowResultViewModel>> LoadAllExamResult(int studentId)
         {
             var x = from t1 in _sqlServerContext.ExamInfo
-                    join t2 in _sqlServerContext.Students on t1.StudentId equals t2.Id
+                    join t2 in _sqlServerContext.Students on t1.StudentId equals t2.Id where t1.StudentId == studentId
                     join t3 in _sqlServerContext.Exam on t1.ExamId equals t3.Id
 
                     select new ShowResultViewModel
