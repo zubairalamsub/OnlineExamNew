@@ -14,11 +14,12 @@
          angular.element(document).ready(function () {
      
             //$scope.loadCashRefundDoneFlag();
-            $scope.showTable = false;
+            $scope.showTable = true;
+            $scope.LoadAllClass();
         });
 
          $scope.Save = () => {
-            $scope.showTable = false;
+            //$scope.showTable = false;
            /* $scope.showTable1 = false;*/
             let Url = "";
             let hostName = window.location.protocol + "//" + window.location.hostname;
@@ -49,6 +50,20 @@
                     $scope.showLoader = false;
                 });
         }
+          $scope.LoadAllClass = () => {
+                $http.get(Url + 'LoadAllClass/', { headers: { 'Content-Type': 'application/json' } })
+                    .then(response => {
+                        console.log(response.data);
+                        $scope.classes=response.data.model
+                       // alert(response.data);
+                    }, error = (response) => {
+                        console.log(response);
+                    });
+        }
+
+        
+
+        
         });
 </script>
 
@@ -62,6 +77,21 @@
    <input type="text" class="form-control" placeholder="Class" aria-label="ClassName" aria-describedby="basic-addon1" ng-model="classname">
 
   <button type="submit" class="btn btn-primary my-1" ng-click="Save()">Submit</button>
+
+     <table class="table table-stripe" >
+   <thead><tr>
+  
+     <th> Class Id </th>
+     <th> Class Name</th>
+    </tr></thead>
+   <tbody>
+     <tr ng-repeat="m in classes">
+       <td> {{ m.id }} </td>
+       <td> {{ m.name }} </td>
+       
+     </tr>
+   </tbody>
+ </table>
 </form>
 </div>
 </div>
