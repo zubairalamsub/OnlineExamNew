@@ -68,6 +68,24 @@ namespace OnlineExam.Controllers
 			}
         }
 
+		public int GetTeacherId()
+		{
+			try
+			{
+				int userid = Convert.ToInt32(HttpContext.Session.GetInt32("Id"));
+				return userid;
+			}
+			catch (Exception ex)
+
+			{
+
+				throw ex;
+			}
+		}
+
+
+
+
 		public int GetStudentIdFromCookie()
 		{
 			try
@@ -452,7 +470,7 @@ namespace OnlineExam.Controllers
 		public async Task<IActionResult> LoadAllExam()
 		{
 			var response = new ListResponseModel<Exam>();
-			var teacherId = GetTeacherIdFromCookie();
+			var teacherId = GetTeacherId();
 			try
 			{
 
