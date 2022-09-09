@@ -13,7 +13,7 @@ namespace OnlineExam.Services.Interfaces
 {
     public interface ILoginService
     {
-        Task<Student> UserRegister(Student student);
+        Task<List<Student>> UserRegister(Student student);
         Task<Teacher> GetAllTeacher(loginViewModel loginViewModel);
         Task<Teacher> TeacherRegister(Teacher teacher);
         Task<IEnumerable<Teacher>> LoadAllTeacher();

@@ -9,7 +9,7 @@ namespace OnlineExam.Entity.Interfaces
 {
     public interface ILoginRepository
     {
-        Task<Student> UserRegister(Student courierUsers);
+        Task<List<Student>> UserRegister(List<Student> students);
         Task<Teacher> GetAllTeacher(loginViewModel loginViewModel);
         Task<Teacher> TeacherRegister(Teacher teacher);
         Task<IEnumerable<Teacher>> LoadAllTeacher();

@@ -21,11 +21,11 @@ namespace Infrastructure.Data
         }
 
        
-        public async Task<Student> UserRegister(Student courierUsers)
+        public async Task<List<Student>> UserRegister(List<Student> students)
         {
-            await _sqlServerContext.Students.AddAsync(courierUsers);
+            await _sqlServerContext.Students.AddRangeAsync(students);
             await _sqlServerContext.SaveChangesAsync();
-            return courierUsers;
+            return students;
 
         }
 

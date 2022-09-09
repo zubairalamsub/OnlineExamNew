@@ -6,7 +6,7 @@
 
 <script>
         var app = angular.module('AssignApp', []);
-        app.controller('AssignCtrl', function($scope,$http) {
+        app.controller('AssignCtrl', function ($scope, $http, $sce) {
             let Url = "";
             let hostName = window.location.protocol + "//" + window.location.hostname;
             let portName = window.location.port;
@@ -16,6 +16,9 @@
          angular.element(document).ready(function () {
             $scope.LoadAllClass();
         });
+        $scope.trustAsHtml = function (html) {
+            return $sce.trustAsHtml(html);
+        }
            
 
          $scope.CreateStudent = () => {
@@ -42,7 +45,14 @@
             $http.post(Url + 'UserRegister/', assignModel, { headers: { 'Content-Type': 'application/json' } })
                 .then(response => {
                     console.log(response.data);
-                    $scope.IdText =  hostName+':'+portName+'/Account/CreateStudent?'+response.data.model.id;
+                    var str="<div>"
+                    for (var i = 0; i < response.data.model.length; i++) {
+                        str += hostName + ':' + portName + '/Account/CreateStudent?' + response.data.model[i].id ;
+                        str +="<br>";
+                    }
+                    str+="</div>"
+                    //$scope.IdText =  hostName+':'+portName+'/Account/CreateStudent?'+response.data.model.id;
+                    $scope.IdText = str;
                     $scope.showinput = true;
                   
                   alert("Successfully Added")
@@ -93,16 +103,21 @@
 <div ng-app ="AssignApp">
 <div ng-controller="AssignCtrl">
 <form class="form-inline">
-  </select>
+ 
   <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Class</label>
   <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" ng-model=class>
   <option data-ng-repeat="t in classes" value="{{t.id}}">{{t.name}}</option>
   </select>
   <button type="submit" class="btn btn-primary my-1" ng-click="CreateStudent()">Generate New</button>
-  <input type="text" id="lname" name="lname" ng-model="IdText" ng-show="showinput">
+  @*<input type="text" id="lname" name="lname" ng-model="IdText" ng-show="showinput">*@
+@*<textarea id="lname" name="txtname" rows="8" cols="50" maxlength="600" ng-show="showinput" ng-model="IdText">
+  
+ </textarea>*@
+           
 
 
   <button type="submit" class="btn btn-primary my-1" ng-click="CopyText()">Copy Link</button>
+  <div ng-bind-html="trustAsHtml(IdText)" ng-show="showinput"></div>
 </form>
 </div>
 </div>

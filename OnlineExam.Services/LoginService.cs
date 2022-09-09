@@ -21,10 +21,16 @@ namespace OnlineExam.Services
           
         }
 
-        public async Task<Student> UserRegister(Student student)
+        public async Task< List<Student>> UserRegister(Student student)
         {
-  
-            var data = await _loginRepository.UserRegister(student);
+            List<Student> st = new List<Student>();
+            for(int i=0;i<20;i++)
+            {
+                st.Add(new Student { Name = "", Password = "", UserName = "", PhoneNumber = "", ClassId = student.ClassId });
+            }
+           
+
+            var data = await _loginRepository.UserRegister(st);
             return data;
         }
         public async Task<Teacher> TeacherRegister(Teacher teacher)

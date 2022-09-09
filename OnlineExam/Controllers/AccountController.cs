@@ -50,7 +50,7 @@ namespace OnlineExam.Controllers
         [ProducesResponseType(500)]
         public async Task<IActionResult> UserRegister([FromBody] Student student)
         {
-            var response = new SingleResponseModel<Student>();
+            var response = new ListResponseModel<Student>();
 
             try
             {
