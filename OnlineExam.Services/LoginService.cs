@@ -21,10 +21,10 @@ namespace OnlineExam.Services
           
         }
 
-        public async Task< List<Student>> UserRegister(Student student)
+        public async Task< List<Student>> UserRegister(StudentVM student)
         {
             List<Student> st = new List<Student>();
-            for(int i=0;i<20;i++)
+            for(int i=0;i<student.NoOfStudent;i++)
             {
                 st.Add(new Student { Name = "", Password = "", UserName = "", PhoneNumber = "", ClassId = student.ClassId });
             }

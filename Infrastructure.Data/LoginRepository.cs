@@ -23,9 +23,22 @@ namespace Infrastructure.Data
        
         public async Task<List<Student>> UserRegister(List<Student> students)
         {
-            await _sqlServerContext.Students.AddRangeAsync(students);
-            await _sqlServerContext.SaveChangesAsync();
-            return students;
+            try
+            {
+
+                await _sqlServerContext.Students.AddRangeAsync(students);
+                await _sqlServerContext.SaveChangesAsync();
+                return students;
+            }
+            catch(Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+
+            }
 
         }
 

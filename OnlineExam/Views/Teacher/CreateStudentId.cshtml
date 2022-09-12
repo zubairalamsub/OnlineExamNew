@@ -22,6 +22,12 @@
            
 
          $scope.CreateStudent = () => {
+
+            if (parseInt($scope.noofstudent)>20)
+            {
+                alert("Maximum 20 Students Can be added");
+                return false;
+            }
             $scope.showTable = false;
            /* $scope.showTable1 = false;*/
             let Url = "";
@@ -39,7 +45,9 @@
                 Password: "",
                 ClassId: classId,
                 PhoneNumber: "",
-                Email:""
+                Email:"",
+                NoOfStudent: parseInt($scope.noofstudent)
+                
             }
        
             $http.post(Url + 'UserRegister/', assignModel, { headers: { 'Content-Type': 'application/json' } })
@@ -103,17 +111,13 @@
 <div ng-app ="AssignApp">
 <div ng-controller="AssignCtrl">
 <form class="form-inline">
- 
-  <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Class</label>
+  <label class="my-1 mr-2" for="inlineFormCustomSelectPref">No Of Student: </label>
+  <input type="text" id="lname" name="lname" ng-model="noofstudent">
+  <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Class: </label>
   <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" ng-model=class>
   <option data-ng-repeat="t in classes" value="{{t.id}}">{{t.name}}</option>
   </select>
   <button type="submit" class="btn btn-primary my-1" ng-click="CreateStudent()">Generate New</button>
-  @*<input type="text" id="lname" name="lname" ng-model="IdText" ng-show="showinput">*@
-@*<textarea id="lname" name="txtname" rows="8" cols="50" maxlength="600" ng-show="showinput" ng-model="IdText">
-  
- </textarea>*@
-           
 
 
   <button type="submit" class="btn btn-primary my-1" ng-click="CopyText()">Copy Link</button>

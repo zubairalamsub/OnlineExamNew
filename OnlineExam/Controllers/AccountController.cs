@@ -48,7 +48,7 @@ namespace OnlineExam.Controllers
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> UserRegister([FromBody] Student student)
+        public async Task<IActionResult> UserRegister([FromBody] StudentVM student)
         {
             var response = new ListResponseModel<Student>();
 
