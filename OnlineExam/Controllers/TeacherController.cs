@@ -333,11 +333,23 @@ namespace OnlineExam.Controllers
 		public async Task<IActionResult> CreateNewExam([FromBody] Exam exam)
 		{
 			var response = new SingleResponseModel<int>();
+			var teacherId = GetTeacherId();
 
-			try
+
+            try
 			{
 
-				var data = await _techerService.CreateNewExam(exam);
+                Exam exam1 = new Exam();
+                exam1.ClassId = exam.ClassId;
+                exam1.ExamName = exam.ExamName;
+                exam1.StartTime = exam.StartTime;
+                exam1.EndTime = exam.EndTime;
+				exam1.TeacherId = teacherId;
+				exam1.QuestionName = exam.QuestionName;
+
+
+
+                var data = await _techerService.CreateNewExam(exam1);
 				response.Model = data;
 			}
 			catch (Exception exp)
