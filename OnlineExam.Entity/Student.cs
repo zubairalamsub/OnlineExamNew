@@ -15,7 +15,8 @@ namespace OnlineExam.Entity
         public int ClassId { get; set; } = 0;
         public string PhoneNumber { get; set; } = "";
         public string Email { get; set; } = "";
-       
+        public int IsValid { get; set; }
+
 
     }
 

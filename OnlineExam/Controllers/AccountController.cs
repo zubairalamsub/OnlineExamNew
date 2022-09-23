@@ -39,6 +39,10 @@ namespace OnlineExam.Controllers
         {
             return View();
         }
+        public IActionResult LinkNotFound()
+        {
+            return View();
+        }
 
 
 
@@ -143,6 +147,32 @@ namespace OnlineExam.Controllers
             return response.ToHttpResponse();
         }
 
+
+        [HttpPost]
+        [Route("api/CheckLinkValidity")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> CheckLinkValidity([FromBody] Student student)
+        {
+            var response = new SingleResponseModel<Student>();
+
+            try
+            {
+
+                var data = await _loginService.CheckLinkValidity(student);
+                response.Model = data;
+            }
+            catch (Exception exp)
+            {
+                response.DidError = true;
+                response.ErrorMessage = "There was an internal error, please contact to technical support.";
+            }
+
+            return response.ToHttpResponse();
+        }
+
         [HttpPost]
         [Route("api/Teacherlogin")]
         public async Task<bool> Index([FromBody] loginViewModel userlogIn)
@@ -177,6 +207,7 @@ namespace OnlineExam.Controllers
             }
 
         }
+        
 
 
 

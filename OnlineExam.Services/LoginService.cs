@@ -26,7 +26,7 @@ namespace OnlineExam.Services
             List<Student> st = new List<Student>();
             for(int i=0;i<student.NoOfStudent;i++)
             {
-                st.Add(new Student { Name = "", Password = "", UserName = "", PhoneNumber = "", ClassId = student.ClassId });
+                st.Add(new Student { Name = "", Password = "", UserName = "", PhoneNumber = "", ClassId = student.ClassId,IsValid=1 });
             }
            
 
@@ -63,6 +63,14 @@ namespace OnlineExam.Services
             var data = await _loginRepository.UpdateStudent(student);
             return data;
         }
+        public async Task<Student> CheckLinkValidity(Student student)
+        {
+
+            var data = await _loginRepository.CheckLinkValidity(student);
+            return data;
+        }
+
+        
 
 
 

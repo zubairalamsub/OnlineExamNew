@@ -128,10 +128,30 @@ namespace Infrastructure.Data
             students.PhoneNumber = student.PhoneNumber;
             students.Password = student.Password;
             students.UserName = student.UserName;
+            students.IsValid = student.IsValid;
             //students.ClassId = student.ClassId;
             await _sqlServerContext.SaveChangesAsync();
             return students ;
         }
+        public async Task<Student> CheckLinkValidity(Student student)
+
+
+        {
+            Student student1 = _sqlServerContext.Students.Where(x=>x.Id==student.Id).Select(x => new Student
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Email = x.Email,
+                PhoneNumber = x.PhoneNumber,
+                Password = x.Password,
+                UserName = x.UserName,
+                IsValid = x.IsValid,
+                ClassId = x.ClassId
+            }).FirstOrDefault();
+            return student1;
+
+        }
+
 
     }
 }
