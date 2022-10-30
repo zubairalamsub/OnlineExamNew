@@ -51,6 +51,7 @@
      <th>Exam Name</th>
      <th> Marks </th>
      <th> Total Marks </th>
+     <th> Remarks</th>
     </tr></thead>
    <tbody>
      <tr ng-repeat="m in marks">
@@ -58,7 +59,8 @@
       
        <td> {{ m.marks }} </td>
        <td> {{ m.totalMarks }} </td>
-       
+       <td ng-if="m.marks>=m.totalMarks*.4"> Pass</td>
+       <td ng-if="m.marks<=m.totalMarks*.4"> Fail</td>
      </tr>
    </tbody>
  </table>
