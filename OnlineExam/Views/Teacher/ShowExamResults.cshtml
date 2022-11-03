@@ -3,7 +3,8 @@
     Layout = "~/Views/Shared/_StudentLayout.cshtml";
 }
 
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 <script>
         var app = angular.module('AssignApp', []);
         app.controller('AssignCtrl', function($scope,$http) {
@@ -30,8 +31,20 @@
                     });
         }
 
-        
-
+        $scope.Export = function () {
+            html2canvas(document.getElementById('tblCustomers'), {
+                onrendered: function (canvas) {
+                    var data = canvas.toDataURL();
+                    var docDefinition = {
+                        content: [{
+                            image: data,
+                            width: 500
+                        }]
+                    };
+                    pdfMake.createPdf(docDefinition).download("Table.pdf");
+                }
+            });
+           }
         });
 </script>
 
@@ -46,6 +59,84 @@
   <option data-ng-repeat="t in classes" value="{{t.id}}">{{t.name}}</option>
   </select>*@
 
+
+  
+                <style type='text/css'>
+            #certificate {
+                        margin: 0;
+                        padding: 0;
+                    }
+
+               #bodyc {
+                        color: black;
+                        display: table;
+                        font-family: Georgia, serif;
+                        font-size: 24px;
+                        text-align: center;
+                    }
+
+                #certificate {
+                        border: 20px solid tan;
+                        width: 750px;
+                        height: 563px;
+                        display: table-cell;
+                        vertical-align: middle;
+                    }
+
+                   .logo {
+                        color: tan;
+                    }
+
+                .marquee {
+                        color: tan;
+                        font-size: 48px;
+                        margin: 20px;
+                    }
+
+                    .assignment {
+                        margin: 20px;
+                    }
+
+                    .person {
+                        border-bottom: 2px solid black;
+                        font-size: 32px;
+                        font-style: italic;
+                        margin: 20px auto;
+                        width: 400px;
+                    }
+
+                    .reason {
+                        margin: 20px;
+                    }
+                </style>
+
+
+            <div class="container" id="certificate">
+                    <div class="logo">
+                        An Organization
+                    </div>
+
+                    <div class="marquee">
+                        Certificate of Completion
+                    </div>
+
+                    <div class="assignment">
+                        This certificate is presented to
+                    </div>
+
+                    <div class="person">
+                        Joe Nathan
+                    </div>
+
+                    <div class="reason">
+                        For deftly defying the laws of gravity<br />
+                        and flying high
+                    </div>
+                </div>
+           
+       
+
+  
    <table class="table table-stripe" ng-show="Showtable" >
    <thead><tr>
      <th>Exam Name</th>
