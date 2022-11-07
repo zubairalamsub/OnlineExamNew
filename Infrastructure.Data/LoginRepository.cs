@@ -62,7 +62,7 @@ namespace Infrastructure.Data
         {
 
             var teacher = _sqlServerContext.Teacher.Where(a=> a.UserName == loginViewModel.UserName
-             && a.Password.Equals(loginViewModel.Password)).Select(x=> new Teacher
+             && a.Password.Equals(loginViewModel.Password) && a.IsApproved==1).Select(x=> new Teacher
              {
                  Id= x.Id,
                  AdminType= x.AdminType,
@@ -71,7 +71,28 @@ namespace Infrastructure.Data
                  Password= x.Password,
                  PhoneNumber= x.PhoneNumber,
                  PostedOn= x.PostedOn,
-                 UserName=x.UserName
+                 UserName=x.UserName,
+                 IsApproved=x.IsApproved
+             }).FirstOrDefault();
+            return teacher;
+
+        }
+
+        public async Task<Teacher> GetAllUnApprovedTeacher(loginViewModel loginViewModel)
+        {
+
+            var teacher = _sqlServerContext.Teacher.Where(a => a.UserName == loginViewModel.UserName
+             && a.Password.Equals(loginViewModel.Password) && a.IsApproved == 0).Select(x => new Teacher
+             {
+                 Id = x.Id,
+                 AdminType = x.AdminType,
+                 Email = x.Email,
+                 Name = x.Name,
+                 Password = x.Password,
+                 PhoneNumber = x.PhoneNumber,
+                 PostedOn = x.PostedOn,
+                 UserName = x.UserName,
+                 IsApproved = x.IsApproved
              }).FirstOrDefault();
             return teacher;
 

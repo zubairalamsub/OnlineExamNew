@@ -57,7 +57,9 @@
                 Name:$scope.name,
                 UserName: un,
                 Password: $scope.password,
-                Email:$scope.email
+                Email:$scope.email,
+                IsApproved:0
+                
             }
        
             $http.post(Url + 'TeacherRegister/', assignModel, { headers: { 'Content-Type': 'application/json' } })

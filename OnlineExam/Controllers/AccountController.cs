@@ -44,6 +44,11 @@ namespace OnlineExam.Controllers
             return View();
         }
 
+        public IActionResult AdminHome()
+        {
+            return View();
+        }
+
 
 
         [HttpPost]
