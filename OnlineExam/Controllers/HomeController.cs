@@ -55,6 +55,11 @@ namespace OnlineExam.Controllers
             return View();
         }
 
+        public IActionResult AdminLogin()
+        {
+            return View();
+        }
+
         public int GetStudentIdFromCookie()
         {
             try

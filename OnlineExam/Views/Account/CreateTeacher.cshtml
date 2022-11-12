@@ -35,6 +35,19 @@
         });
            
 
+		   $scope.CheckPassword = () => {
+                var inputtxt = $scope.password;
+                var passw = /^[A-Za-z]\w{7,14}$/;
+                if (passw.test(inputtxt)) {
+                    /*alert('Correct, try another...')*/
+					$scope.CreateTeacher();
+                }
+                else {
+                    alert(' Too Easy Password ,Try a different password')
+                    return false;
+                }
+         }
+
          $scope.CreateTeacher = () => {
             $scope.showTable = false;
              let idQString ='';
@@ -223,6 +236,7 @@ body {
 					</span>                    
 				</div>
 				<input type="password" class="form-control" name="Password" placeholder="Password" required="required" ng-model="password">
+				<p>Input Password and Submit [7 to 15 characters which contain only characters, numeric digits, underscore and first character must be a letter]</p>
 			</div>
         </div>
 	@*	<div class="form-group">
@@ -240,7 +254,7 @@ body {
 			<label class="form-check-label"><input type="checkbox" required="required"> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
 		</div>*@
 		<div class="form-group">
-            <button type="button" class="btn btn-primary btn-lg" ng-click="CreateTeacher()">Sign Up</button>
+		   <button type="button" class="btn btn-primary btn-lg" ng-click="CheckPassword()">Sign Up</button>
         </div>
     </form>
 	<div class="text-center">Already have an account? <a href="/Home/TeacherLogin">Login here</a></div>

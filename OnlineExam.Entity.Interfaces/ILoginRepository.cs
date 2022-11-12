@@ -18,5 +18,6 @@ namespace OnlineExam.Entity.Interfaces
         Task<Student> CheckLinkValidity(Student student);
         Task<Student> GetAllStudent(loginViewModel loginViewModel);
         Task<List<Teacher>> GetAllUnApprovedTeacher();
+        Task<Teacher> GetAllAdmin(loginViewModel loginViewModel);
     }
 }

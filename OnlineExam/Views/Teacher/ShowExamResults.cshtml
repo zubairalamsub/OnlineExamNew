@@ -16,11 +16,13 @@
             
             $scope.LoadAllExam();
             //$scope.loadCashRefundDoneFlag();
-            $scope.Showtable = true;
+            //$scope.Showtable = false;
+            $scope.Showc = false;
         });
            
 
             $scope.LoadAllExam = () => {
+            $scope.Showtable = true;
                 $http.get(Url + 'LoadAllExamResult/', { headers: { 'Content-Type': 'application/json' } })
                     .then(response => {
                         console.log(response.data);
@@ -31,8 +33,23 @@
                     });
         }
 
+         $scope.CreateCertificate=(subname)=>{
+            $scope.Showc = true;
+             var name = $scope.getCookie('StudentfullName');
+            $scope.studentname = name;
+             $scope.subject =subname ;
+             $scope.Export();
+
+         }
+
+        $scope.getCookie=(name)=> {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
         $scope.Export = function () {
-            html2canvas(document.getElementById('tblCustomers'), {
+                html2canvas(document.getElementById('certificate'), {
                 onrendered: function (canvas) {
                     var data = canvas.toDataURL();
                     var docDefinition = {
@@ -41,7 +58,7 @@
                             width: 500
                         }]
                     };
-                    pdfMake.createPdf(docDefinition).download("Table.pdf");
+                    pdfMake.createPdf(docDefinition).download("Certificate.pdf");
                 }
             });
            }
@@ -61,7 +78,7 @@
 
 
   
-                <style type='text/css'>
+           <style type='text/css'>
             #certificate {
                         margin: 0;
                         padding: 0;
@@ -111,26 +128,26 @@
                 </style>
 
 
-            <div class="container" id="certificate">
+            <div class="container" id="certificate" ng-show="Showc">
                     <div class="logo">
-                        An Organization
+                        Online Exam Portaal
                     </div>
 
                     <div class="marquee">
                         Certificate of Completion
                     </div>
-
+                    
                     <div class="assignment">
                         This certificate is presented to
                     </div>
 
                     <div class="person">
-                        Joe Nathan
-                    </div>
+                    <p ng-bind="studentname"></p>
+                </div>
 
                     <div class="reason">
-                        For deftly defying the laws of gravity<br />
-                        and flying high
+                        Has Successfully Completed the Course <p ng-bind="subject"></p>
+                      
                     </div>
                 </div>
            
@@ -150,8 +167,8 @@
       
        <td> {{ m.marks }} </td>
        <td> {{ m.totalMarks }} </td>
-       <td ng-if="m.marks>=m.totalMarks*.4"> Pass</td>
-       <td ng-if="m.marks<=m.totalMarks*.4"> Fail</td>
+                        <td ng-if="m.marks>=m.totalMarks*.4"> Pass<button ng-click="CreateCertificate( m.questionName)" cli> Certificate</button></td>
+                        <td ng-if="m.marks<=m.totalMarks*.4"> Fail </td>
      </tr>
    </tbody>
  </table>

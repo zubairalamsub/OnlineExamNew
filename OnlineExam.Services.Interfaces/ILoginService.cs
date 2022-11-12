@@ -22,7 +22,9 @@ namespace OnlineExam.Services.Interfaces
         Task<Student> CheckLinkValidity(Student student);
         Task<Student> GetAllStudent(loginViewModel loginViewModel);
         Task<Teacher> UpdateTeacher(Teacher teacher);
-        
+        Task<Teacher> GetAllAdmin(loginViewModel loginViewModel);
+
+
 
     }
 }

@@ -274,7 +274,42 @@ namespace OnlineExam.Controllers
             }
 
         }
-        
+
+        [HttpPost]
+        [Route("api/AdminLogin")]
+        public async Task<bool> AdminLogin([FromBody] loginViewModel userlogIn)
+        {
+            try
+            {
+                var user = await _loginService.GetAllAdmin(userlogIn);
+                if (user != null)
+                {
+
+                    HttpContext.Session.SetInt32("Id", user.Id);
+                    HttpContext.Session.SetString("UserName", user.UserName);
+                    HttpContext.Session.SetString("Password", user.Password);
+                    HttpContext.Session.SetInt32("AdminType", Convert.ToInt32(user.AdminType));
+                    HttpContext.Session.SetString("LoginType", "Teacher");
+                    CookieOptions option = new CookieOptions();
+                    option.Expires = DateTime.Now.AddMinutes(1000);
+                    Response.Cookies.Append("Id", user.Id.ToString(), option);
+                    Response.Cookies.Append("UserName", user.UserName, option);
+                    Response.Cookies.Append("Password", user.Password, option);
+                    Response.Cookies.Append("AdminType", user.AdminType.ToString(), option);
+                    Response.Cookies.Append("LoginType", "Teacher", option);
+                    Response.Cookies.Append("AdminfullName", user.Name, option);
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
 
 
 
@@ -332,6 +367,25 @@ namespace OnlineExam.Controllers
             return RedirectToAction("TeacherLogin", "Home");
         }
 
+
+        public IActionResult AdminLogOut()
+        {
+            //Session.Remove("loggedinUser");
+            //var cookie = ControllerContext.HttpContext.Request.Cookies["userid"];
+            //cookie.Expires = DateTime.Now.AddDays(-1);
+            //Response.Cookies.Add(cookie);
+            HttpContext.Session.Clear();
+            CookieOptions option = new CookieOptions();
+            option.Expires = DateTime.Now.AddMinutes(-1);
+            Response.Cookies.Delete("Id");
+            Response.Cookies.Delete("UserName");
+            Response.Cookies.Delete("Password");
+            Response.Cookies.Delete("AdminType");
+            //Response.Cookies.Delete("AdminType");
+            //Response.Cookies.Delete("LoginType");
+            Response.Cookies.Delete("AdminfullName");
+            return RedirectToAction("AdminLogin", "Home");
+        }
 
         public IActionResult StudentLogOut()
         {
