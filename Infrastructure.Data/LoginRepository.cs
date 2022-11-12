@@ -78,11 +78,10 @@ namespace Infrastructure.Data
 
         }
 
-        public async Task<Teacher> GetAllUnApprovedTeacher(loginViewModel loginViewModel)
+        public async Task<List<Teacher>> GetAllUnApprovedTeacher()
         {
 
-            var teacher = _sqlServerContext.Teacher.Where(a => a.UserName == loginViewModel.UserName
-             && a.Password.Equals(loginViewModel.Password) && a.IsApproved == 0).Select(x => new Teacher
+            var teacher = _sqlServerContext.Teacher.Where(a => a.IsApproved == 0).Select(x => new Teacher
              {
                  Id = x.Id,
                  AdminType = x.AdminType,
@@ -93,7 +92,7 @@ namespace Infrastructure.Data
                  PostedOn = x.PostedOn,
                  UserName = x.UserName,
                  IsApproved = x.IsApproved
-             }).FirstOrDefault();
+            }).ToList();
             return teacher;
 
         }
@@ -153,6 +152,15 @@ namespace Infrastructure.Data
             //students.ClassId = student.ClassId;
             await _sqlServerContext.SaveChangesAsync();
             return students ;
+        }
+
+        public async Task<Teacher> UpdateTeacher(Teacher teacher)
+        {
+
+            var teachers = _sqlServerContext.Teacher.Where(d => d.Id == teacher.Id).First();
+            teachers.IsApproved = 1;
+            await _sqlServerContext.SaveChangesAsync();
+            return teachers;
         }
         public async Task<Student> CheckLinkValidity(Student student)
 

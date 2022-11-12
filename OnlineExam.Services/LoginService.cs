@@ -45,10 +45,10 @@ namespace OnlineExam.Services
             var data = await _loginRepository.GetAllTeacher(loginViewModel);
             return data;
         }
-        public async Task<Teacher> GetAllUnApprovedTeacher(loginViewModel loginViewModel)
+        public async Task<List<Teacher>> GetAllUnApprovedTeacher()
         {
 
-            var data = await _loginRepository.GetAllUnApprovedTeacher(loginViewModel);
+            var data = await _loginRepository.GetAllUnApprovedTeacher();
             return data;
         }
         public async Task<Student> GetAllStudent(loginViewModel loginViewModel)
@@ -67,6 +67,13 @@ namespace OnlineExam.Services
         {
 
             var data = await _loginRepository.UpdateStudent(student);
+            return data;
+        }
+
+        public async Task<Teacher> UpdateTeacher(Teacher teacher)
+        {
+
+            var data = await _loginRepository.UpdateTeacher(teacher);
             return data;
         }
         public async Task<Student> CheckLinkValidity(Student student)

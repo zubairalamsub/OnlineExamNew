@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewData["Title"] = "TeacherApproval";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+
+
+<script>
+    var app = angular.module('AssignApp', []);
+    app.controller('AssignCtrl', function ($scope, $http) {
+        let Url = "";
+        let hostName = window.location.protocol + "//" + window.location.hostname;
+        let portName = window.location.port;
+        Url = `${hostName}${portName != "" ? `:${portName}/api/` : `/api/`}`;
+        angular.element(document).ready(function () {
+            $scope.LoadAllTeacher();
+            $scope.LoadAllClass();
+            //$scope.loadCashRefundDoneFlag();
+            $scope.showTable = false;
+        });
+        $scope.LoadAllTeacher = () => {
+            $http.get(Url + 'GetAllUnApprovedTeacher/', { headers: { 'Content-Type': 'application/json' } })
+                .then(response => {
+                    console.log(response.data);
+                    $scope.teachers = response.data.model
+                    // alert(response.data);
+                }, error = (response) => {
+                    console.log(response);
+                });
+        }
+
+        $scope.Assign = (teacherId) => {
+            $scope.showTable = false;
+            /* $scope.showTable1 = false;*/
+            let Url = "";
+            let hostName = window.location.protocol + "//" + window.location.hostname;
+            let portName = window.location.port;
+            Url = `${hostName}${portName != "" ? `:${portName}/api/` : `/api/`}`;
+            console.log(Url);
+            //$scope.showLoader = true;
+            let teacher = parseInt($scope.teacher);
+            let classId = parseInt($scope.class);
+            let assignModel = {
+                Id: teacherId
+                
+            }
+            $http.post(Url + 'UpdateTeacher/', assignModel, { headers: { 'Content-Type': 'application/json' } })
+                .then(response => {
+                    console.log(response.data);
+
+                    alert("Approve Successfull");
+                    location.reload();
+
+                }, error = (response) => {
+                    console.log(response);
+                    $scope.showLoader = false;
+                });
+        }
+    });
+</script>
+
+
+<h1>Teacher Approval</h1>
+<div ng-app="AssignApp">
+    <div ng-controller="AssignCtrl">
+        <form class="form-inline">
+
+
+            <table class="table table-stripe" >
+                <thead>
+                    <tr>
+                        <th>Teacher Id</th>
+                        <th>Name</th>
+                        <th>Aporove</th>
+                      
+                   
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="m in teachers">
+                        <td> {{ m.id }}</td>
+                        <td> {{ m.name }} </td>
+                        <td> <button type="submit" class="btn btn-primary my-1" ng-click="Assign( m.id)">Aprove</button></td>
+                    </tr>
+                </tbody>
+            </table>
+    
+           
+        </form>
+    </div>
+</div>

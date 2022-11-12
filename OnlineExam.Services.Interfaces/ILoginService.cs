@@ -15,12 +15,14 @@ namespace OnlineExam.Services.Interfaces
     {
         Task<List<Student>> UserRegister(StudentVM student);
         Task<Teacher> GetAllTeacher(loginViewModel loginViewModel);
-        Task<Teacher> GetAllUnApprovedTeacher(loginViewModel loginViewModel);
+        Task<List<Teacher>> GetAllUnApprovedTeacher();
         Task<Teacher> TeacherRegister(Teacher teacher);
         Task<IEnumerable<Teacher>> LoadAllTeacher();
         Task<Student> UpdateStudent(Student student);
         Task<Student> CheckLinkValidity(Student student);
         Task<Student> GetAllStudent(loginViewModel loginViewModel);
+        Task<Teacher> UpdateTeacher(Teacher teacher);
+        
 
     }
 }

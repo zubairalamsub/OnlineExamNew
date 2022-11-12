@@ -103,6 +103,19 @@ background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244
                 });
         }
 
+            $scope.CheckPassword = () => {
+                var inputtxt = $scope.password;
+                var passw = /^[A-Za-z]\w{7,14}$/;
+                if (passw.test(inputtxt)) {
+                    /*alert('Correct, try another...')*/
+                    $scope.CreateStudent();
+                }
+                else {
+                    alert(' Too Easy Password ,Try a different password')
+                    return false;
+                }
+         }
+
          $scope.CheckValidity = () => {
                 $scope.Showdiv = false;
                 $scope.showTable = false;
@@ -129,7 +142,8 @@ background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244
                     Password: $scope.password,
                     PhoneNumber: $scope.mobile,
                     Email: $scope.email,
-                    IsValid: 0
+                    IsValid: 0,
+                    IsApproved:0
 
                 }
 
@@ -202,11 +216,12 @@ background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244
                 <div class="form-outline mb-4">
                   <input type="password" id="form3Example4cg" class="form-control form-control-lg" ng-model="password" />
                   <label class="form-label" for="form3Example4cg">Password</label>
+                  <p>Input Password and Submit [7 to 15 characters which contain only characters, numeric digits, underscore and first character must be a letter]</p>
                 </div>
 
                 <div class="d-flex justify-content-center">
                   <button type="button"
-                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" ng-click="CreateStudent()">Register</button>
+                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" ng-click="CheckPassword()">Register</button>
                 </div>
 
                 <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="/Home/StudentLogin"

@@ -50,6 +50,42 @@ namespace OnlineExam.Controllers
         }
 
 
+        public IActionResult TeacherApproval()
+        {
+            return View();
+        }
+
+        
+
+
+
+        [HttpGet]
+        [Route("api/GetAllUnApprovedTeacher")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> GetAllUnApprovedTeacher()
+        {
+            var response = new ListResponseModel<Teacher>();
+
+            try
+            {
+
+                var data = await _loginService.GetAllUnApprovedTeacher();
+                response.Model = data;
+            }
+            catch (Exception exp)
+            {
+                response.DidError = true;
+                response.ErrorMessage = "There was an internal error, please contact to technical support.";
+            }
+
+            return response.ToHttpResponse();
+        }
+
+
+
 
         [HttpPost]
         [Route("api/UserRegister")]
@@ -151,6 +187,32 @@ namespace OnlineExam.Controllers
 
             return response.ToHttpResponse();
         }
+
+        [HttpPost]
+        [Route("api/UpdateTeacher")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> UpdateTeacher([FromBody] Teacher teacher)
+        {
+            var response = new SingleResponseModel<Teacher>();
+
+            try
+            {
+
+                var data = await _loginService.UpdateTeacher(teacher);
+                response.Model = data;
+            }
+            catch (Exception exp)
+            {
+                response.DidError = true;
+                response.ErrorMessage = "There was an internal error, please contact to technical support.";
+            }
+
+            return response.ToHttpResponse();
+        }
+
 
 
         [HttpPost]
